@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
-    path: Assets/Scenes/VisionProTeatScene.unity
+    path: Assets/Scenes/VisionProTestScene.unity
     guid: ab62d606d508e40048beb15bbbc0d91a
   - enabled: 1
     path: Assets/Samples/PolySpatial/Scenes/ProjectLauncher.unity
