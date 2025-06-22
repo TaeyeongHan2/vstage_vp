@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 public class GestureToParticle : MonoBehaviour
 {
@@ -9,69 +9,88 @@ public class GestureToParticle : MonoBehaviour
     [Header("Settings")]
     public float cooldownTime = 1f;
     
-    [Header("XR Interaction")]
-    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor leftHandInteractor;
-    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor rightHandInteractor;
-    
     private float lastTriggerTime;
-    private bool wasSelectingLastFrame = false;
+    
+    // Input Actions
+    private InputAction selectAction;
+    private InputAction tapAction;
     
     void Start()
     {
-        // 자동으로 Hand Interactor 찾기
-        if (leftHandInteractor == null || rightHandInteractor == null)
+        // PolySpatial Input Actions에서 Select 액션 찾기
+        var inputActions = FindObjectOfType<UnityEngine.InputSystem.PlayerInput>();
+        if (inputActions != null)
         {
-            FindHandInteractors();
+            selectAction = inputActions.actions["Select"];
+            tapAction = inputActions.actions["Tap"];
+        }
+        
+        // Input Action 이벤트 등록
+        if (selectAction != null)
+        {
+            selectAction.performed += OnSelectPerformed;
+            selectAction.Enable();
+        }
+        
+        if (tapAction != null)
+        {
+            tapAction.performed += OnTapPerformed;
+            tapAction.Enable();
         }
     }
     
-    void FindHandInteractors()
+    void OnDestroy()
     {
-        UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor[] interactors = FindObjectsOfType<UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor>();
-        
-        foreach (var interactor in interactors)
+        // Input Action 이벤트 해제
+        if (selectAction != null)
         {
-            if (interactor.name.ToLower().Contains("left"))
-                leftHandInteractor = interactor;
-            else if (interactor.name.ToLower().Contains("right"))
-                rightHandInteractor = interactor;
+            selectAction.performed -= OnSelectPerformed;
+            selectAction.Disable();
+        }
+        
+        if (tapAction != null)
+        {
+            tapAction.performed -= OnTapPerformed;
+            tapAction.Disable();
         }
     }
     
     void Update()
     {
-        // 쿨다운 체크
-        if (Time.time - lastTriggerTime < cooldownTime)
-            return;
-        
-        // Vision Pro 핀치 제스처 감지
-        DetectPinchGesture();
-        
         // 키보드 테스트용 (에디터에서)
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TriggerParticle();
         }
-    }
-    
-    void DetectPinchGesture()
-    {
-        bool isCurrentlySelecting = false;
         
-        // 왼손 또는 오른손이 핀치(select) 중인지 확인
-        if (leftHandInteractor != null && leftHandInteractor.isSelectActive)
-            isCurrentlySelecting = true;
-        
-        if (rightHandInteractor != null && rightHandInteractor.isSelectActive)
-            isCurrentlySelecting = true;
-        
-        // 핀치 시작 순간 감지 (이전 프레임에는 안하고 있었는데 지금 하고 있음)
-        if (isCurrentlySelecting && !wasSelectingLastFrame)
+        // 마우스 테스트용 (에디터에서)
+        if (Input.GetMouseButtonDown(0))
         {
             TriggerParticle();
         }
-        
-        wasSelectingLastFrame = isCurrentlySelecting;
+    }
+    
+    void OnSelectPerformed(InputAction.CallbackContext context)
+    {
+        // Vision Pro Select 제스처 (핀치)
+        if (CanTrigger())
+        {
+            TriggerParticle();
+        }
+    }
+    
+    void OnTapPerformed(InputAction.CallbackContext context)
+    {
+        // Vision Pro Tap 제스처
+        if (CanTrigger())
+        {
+            TriggerParticle();
+        }
+    }
+    
+    bool CanTrigger()
+    {
+        return Time.time - lastTriggerTime >= cooldownTime;
     }
     
     void TriggerParticle()
@@ -80,7 +99,7 @@ public class GestureToParticle : MonoBehaviour
         {
             testParticles.Play();
             lastTriggerTime = Time.time;
-            Debug.Log("Particle Triggered by Vision Pro Pinch!");
+            Debug.Log("Particle Triggered by Vision Pro Gesture!");
         }
         else
         {
@@ -88,4 +107,3 @@ public class GestureToParticle : MonoBehaviour
         }
     }
 }
-
