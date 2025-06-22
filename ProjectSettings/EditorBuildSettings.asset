@@ -8,9 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/VisionProTestScene.unity
     guid: ab62d606d508e40048beb15bbbc0d91a
+  - enabled: 0
+    path: Assets/Scenes/VisionProGestureTest.unity
+    guid: 592dc388c0fc24bb2b2b1f7037371871
+  - enabled: 0
+    path: Assets/Samples/PolySpatial/Scenes/Particles.unity
+    guid: bf71e572be08f4067a4c01d79e03c850
+  - enabled: 1
+    path: Assets/Scenes/VisionProVisualTest.unity
+    guid: 08cc3928808894eaf9e7fdfae47f8dfa
   - enabled: 0
     path: Assets/Samples/PolySpatial/Scenes/ProjectLauncher.unity
     guid: 8b8b8ea8b8131004382443fe7d26cba7
@@ -54,9 +63,6 @@ EditorBuildSettings:
     path: Assets/Samples/PolySpatial/Scenes/ObjectTracking.unity
     guid: bcf3974c848f844818700ed2aa2be00b
   - enabled: 0
-    path: Assets/Samples/PolySpatial/Scenes/Particles.unity
-    guid: bf71e572be08f4067a4c01d79e03c850
-  - enabled: 0
     path: Assets/Samples/PolySpatial/Scenes/Portal.unity
     guid: 9d91b5b5cbdbd408f9a2270b1957525e
   - enabled: 0
@@ -75,6 +81,7 @@ EditorBuildSettings:
     path: Assets/Samples/PolySpatial/Scenes/XRIDebug.unity
     guid: 725f8fea08f4ce54383e9a326229d07d
   m_configObjects:
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 4a1a6e5a284c24d65b60d8aa335f1385, type: 2}
     UnityEditor.XR.VisionOS.VisionOSSettings: {fileID: 11400000, guid: e5a62c3ab3e284d25b3a319b2ec00a03, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.polyspatial.xr.xr_settings: {fileID: 11400000, guid: d082780a76ee840b78587c2eea1040cc, type: 2}
