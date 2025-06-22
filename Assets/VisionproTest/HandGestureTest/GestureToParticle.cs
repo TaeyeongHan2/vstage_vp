@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class GestureToParticle : MonoBehaviour
 {
@@ -10,8 +10,8 @@ public class GestureToParticle : MonoBehaviour
     public float cooldownTime = 1f;
     
     [Header("XR Interaction")]
-    public XRDirectInteractor leftHandInteractor;
-    public XRDirectInteractor rightHandInteractor;
+    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor leftHandInteractor;
+    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor rightHandInteractor;
     
     private float lastTriggerTime;
     private bool wasSelectingLastFrame = false;
@@ -27,7 +27,7 @@ public class GestureToParticle : MonoBehaviour
     
     void FindHandInteractors()
     {
-        XRDirectInteractor[] interactors = FindObjectsOfType<XRDirectInteractor>();
+        UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor[] interactors = FindObjectsOfType<UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor>();
         
         foreach (var interactor in interactors)
         {
