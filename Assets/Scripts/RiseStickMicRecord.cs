@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Hands;
 
@@ -7,7 +8,7 @@ public class RiseStickMicRecord : MonoBehaviour
 {
     [Header("Hand Tracking")]
     public XRHandSubsystem handSubsystem;       
-    public XRHandJointID attachJoint = XRHandJointID.Palm;
+    public XRHandJointID attachJoint = XRHandJointID.Wrist;
     
     [Header("Target Object")]
     public GameObject targetPrefab;              
@@ -99,14 +100,15 @@ public class RiseStickMicRecord : MonoBehaviour
                     Debug.Log("4. 손 감지됨 - 오브젝트 활성화");
                 }
                 
+                
                 // 손 위치를 따라다니기
-                targetInstance.transform.position = validPose.position;
-                targetInstance.transform.rotation = validPose.rotation;
+                targetInstance.transform.position = hand.rootPose.position;
+                targetInstance.transform.rotation = hand.rootPose.rotation;
                 
                 // 디버그 정보 (1초에 한 번만 출력)
                 if (showDebugInfo && Time.frameCount % 60 == 0)
                 {
-                    Debug.Log($"✋ Hand Position: {validPose.position:F2}");
+                    Debug.Log($"✋ Hand Position: {hand.rootPose.position:F2}");
                 }
             }
             else
@@ -141,6 +143,7 @@ public class RiseStickMicRecord : MonoBehaviour
         {
             try
             {
+                //hand.rootPose
                 XRHandJoint joint = hand.GetJoint(jointID);
                 Debug.Log($"Joint {jointID} 시도 중...");
                 
