@@ -16,13 +16,15 @@ public class RiseStickMicRecord : MonoBehaviour
 
     [Header("Debug")]
     public bool showDebugInfo = true;
+
+    private Pose validPose;
     
     void Awake()
     {
         // 타겟 프리팹 인스턴스화 후 비활성화
         if (targetPrefab != null)
         {
-            targetInstance = Instantiate(targetPrefab, transform);
+            targetInstance = Instantiate(targetPrefab,transform);
             targetInstance.SetActive(false);
             Debug.Log("타겟 오브젝트 생성 완료");
         }
