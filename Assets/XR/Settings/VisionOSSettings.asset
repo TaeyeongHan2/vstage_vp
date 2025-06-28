@@ -16,12 +16,12 @@ MonoBehaviour:
   m_HandsTrackingUsageDescription: HandTrackingData
   m_WorldSensingUsageDescription: WorldSettingData
   m_RuntimeSettings: {fileID: 11400000, guid: e33446e8bdd05476fb791e8a95f5c384, type: 2}
-  m_UpperLimbVisibility: 0
+  m_UpperLimbVisibility: 2
   m_HighQualityRecordingMode: 0
   m_FoveatedRendering: 1
   m_MetalImmersionStyle: 0
   m_RealityKitImmersionStyle: 0
-  m_MetalImmersiveOverlays: 0
+  m_MetalImmersiveOverlays: 2
   m_RealityKitImmersiveOverlays: 0
   m_IL2CPPLargeExeWorkaround: 0
   m_UseACTool: 0

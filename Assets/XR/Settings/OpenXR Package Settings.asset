@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3aced3429e5911458f4da2dac9d0f29, type: 3}
   m_Name: MetaHandTrackingAim Standalone
   m_EditorClassIdentifier: 
-  m_enabled: 0
+  m_enabled: 1
   nameUi: Meta Hand Tracking Aim
   version: 0.0.1
   featureIdInternal: com.unity.openxr.feature.input.metahandtrackingaim
@@ -138,26 +138,26 @@ MonoBehaviour:
   m_Name: Standalone
   m_EditorClassIdentifier: 
   features:
-  - {fileID: -2163083099802565293}
-  - {fileID: -8635006917376031891}
   - {fileID: 5149729986263985092}
-  - {fileID: 24139314461019511}
   - {fileID: -3065829139816349780}
+  - {fileID: 24139314461019511}
+  - {fileID: -4687898825390432476}
   - {fileID: -1940739290930236516}
+  - {fileID: -1055831093989548148}
+  - {fileID: 3200789509712968704}
+  - {fileID: -4569331724863360262}
+  - {fileID: 6935709592985335281}
+  - {fileID: -7839463804446976127}
+  - {fileID: -4770113401849236477}
+  - {fileID: -1763480601870399018}
   - {fileID: 2701512884612248765}
   - {fileID: 4452133653421764328}
-  - {fileID: 3200789509712968704}
-  - {fileID: -807810226978484543}
-  - {fileID: 6935709592985335281}
-  - {fileID: -1055831093989548148}
+  - {fileID: -8635006917376031891}
   - {fileID: 4027062448964667113}
-  - {fileID: -1763480601870399018}
-  - {fileID: -4770113401849236477}
   - {fileID: -7679294771652402696}
+  - {fileID: -2163083099802565293}
+  - {fileID: -807810226978484543}
   - {fileID: -7421800205380513642}
-  - {fileID: -4569331724863360262}
-  - {fileID: -4687898825390432476}
-  - {fileID: -7839463804446976127}
   - {fileID: -1065114659484811380}
   m_renderMode: 1
   m_autoColorSubmissionMode: 1
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e314dfef9af0904e80129bcc0a79361, type: 3}
   m_Name: HandTracking Standalone
   m_EditorClassIdentifier: 
-  m_enabled: 0
+  m_enabled: 1
   nameUi: Hand Tracking Subsystem
   version: 0.0.1
   featureIdInternal: com.unity.openxr.feature.input.handtracking
@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5019471fb2174e5c852ecd4047163007, type: 3}
   m_Name: HandInteractionProfile Standalone
   m_EditorClassIdentifier: 
-  m_enabled: 0
+  m_enabled: 1
   nameUi: Hand Interaction Profile
   version: 0.0.1
   featureIdInternal: com.unity.openxr.feature.input.handinteraction

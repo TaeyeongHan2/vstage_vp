@@ -143,9 +143,10 @@ PlayerSettings:
   bundleVersion: 0.1.0
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  - {fileID: 11400000, guid: 6f5f4fd9dc78e4fc49148749dd3ebdb1, type: 2}
   - {fileID: 11400000, guid: e33446e8bdd05476fb791e8a95f5c384, type: 2}
   - {fileID: -4240880862035621279, guid: 733753ea3323c4bc7b00a4269655598b, type: 2}
-  - {fileID: 11400000, guid: 6f5f4fd9dc78e4fc49148749dd3ebdb1, type: 2}
+  - {fileID: 2379573625076045165, guid: 4168c54e642594c168f4c2d51ffec4dc, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -169,13 +170,14 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.UnityTechnologies.com.unity.template.urpblank
     Standalone: com.Unity-Technologies.com.unity.template.urp-blank
+    VisionOS: com.DefaultCompany.vstage-vp
     iPhone: com.Unity-Technologies.com.unity.template.urp-blank
   buildNumber:
     Standalone: 0
     VisionOS: 0
     iPhone: 0
     tvOS: 0
-  overrideDefaultApplicationIdentifier: 1
+  overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0

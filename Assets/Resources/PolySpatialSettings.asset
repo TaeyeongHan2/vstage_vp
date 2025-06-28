@@ -61,7 +61,7 @@ MonoBehaviour:
       bottom: -1.19175
   m_MaterialSwapSets: []
   m_EnablePolySpatialRaycaster: 1
-  m_SelectedValidationType: 1
+  m_SelectedValidationType: 0
   m_ShowWarningsForShaderGraphsInPackages: 1
   m_MinifyShaderGraphNodeNames: 1
   m_PreviewUseBackgroundColor: 1
