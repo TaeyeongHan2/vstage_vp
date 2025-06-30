@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/MR_PreConcertMenu.unity
+    guid: 2bbeee87c51a34d88819ab9ebdc8ff5e
+  - enabled: 0
     path: Assets/Scenes/MicGrabRecordScene.unity
     guid: 8480a8f9ccfce4e9bacf4791431e9187
   - enabled: 0
