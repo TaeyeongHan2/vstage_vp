@@ -2,15 +2,31 @@ using UnityEngine;
 
 public class ContentLoader : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Content Parent")]
+    public Transform mainContentParent;
+    
+    [Header("View Prefabs")]
+    public GameObject homeViewPrefab;
+    public GameObject userGuideViewPrefab;
+    public GameObject concertDetailViewPrefab;
+
+    private void ClearOld()
     {
-        
+        foreach (Transform t in mainContentParent)
+        {
+            Destroy((t.gameObject));
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LoadContent(GameObject prefab)
     {
-        
+        ClearOld();
+        Instantiate(prefab, mainContentParent,false);
     }
+    
+    public void ShowHomeView() => LoadContent(homeViewPrefab);
+    public void ShowUserGuideView() => LoadContent(userGuideViewPrefab);
+    public void ShowConcertDetailView() => LoadContent(concertDetailViewPrefab);
+    
+    
 }
