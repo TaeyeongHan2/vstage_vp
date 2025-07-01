@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class SceneTransitionTestManager : MonoBehaviour
 {
     [Header("Scene Management")]
-    public string concertSceneName = "VisionProVisualTest";
+    public string concertSceneName = "ConcertScene";
     
     [Header("UI References")]
     public GameObject startButton;
