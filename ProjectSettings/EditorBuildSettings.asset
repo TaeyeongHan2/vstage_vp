@@ -86,6 +86,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Samples/XR Interaction Toolkit/3.1.2/Starter Assets/DemoScene.unity
     guid: 319dafa5c80f29f428dc1e0d03f04177
+  - enabled: 0
+    path: Assets/Samples/XR Hands/1.5.1/Gestures/HandGestures.unity
+    guid: cd792f2302b8b6f4c9f264e2a4503e15
   m_configObjects:
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 4a1a6e5a284c24d65b60d8aa335f1385, type: 2}
     UnityEditor.XR.VisionOS.VisionOSSettings: {fileID: 11400000, guid: e5a62c3ab3e284d25b3a319b2ec00a03, type: 2}
