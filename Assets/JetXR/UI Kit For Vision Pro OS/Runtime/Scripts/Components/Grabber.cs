@@ -3,8 +3,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace JetXR.VisionUI
 {
@@ -14,8 +12,8 @@ namespace JetXR.VisionUI
         [SerializeField] private float translateSpeed = 2f;
         [SerializeField] private float rotateSpeed = 50f;
 
-        private XRBaseInteractable interactable;
-        private XRBaseInteractor interactor;
+        private UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable interactable;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor;
         private float radius;
         private float windowAngleOnSelect;
         private float additiveRotation;
@@ -29,7 +27,7 @@ namespace JetXR.VisionUI
             if (!xrEnabled)
                 return;
 
-            interactable = GetComponent<XRBaseInteractable>();
+            interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable>();
             interactable.selectEntered.AddListener(OnSelectEntered);
             interactable.selectExited.AddListener(OnSelectExited);
         }
@@ -60,9 +58,9 @@ namespace JetXR.VisionUI
             if (!xrEnabled)
                 return;
 
-            interactor = eventData.interactorObject.transform.GetComponent<XRBaseInteractor>();
+            interactor = eventData.interactorObject.transform.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor>();
 
-            actionBasedController = (interactor as XRBaseInputInteractor).xrController as ActionBasedController;
+            actionBasedController = (interactor as UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor).xrController as ActionBasedController;
 
             if (actionBasedController != null)
             {

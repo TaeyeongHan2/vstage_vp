@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 13
-  m_BakeOnSceneLoad: 0
+  serializedVersion: 12
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -251,9 +251,6 @@ MonoBehaviour:
   WindowStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  ViewpointChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &103965579
 Transform:
   m_ObjectHideFlags: 0
@@ -349,10 +346,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
-    - target: {fileID: 198637950067575458, guid: 9c2a3ddb3c072466ca678f2a5d6b3182, type: 3}
-      propertyPath: cullingMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 199192134335169774, guid: 9c2a3ddb3c072466ca678f2a5d6b3182, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -369,14 +362,6 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a5450a2e307904ca192813b10d9db8af, type: 2}
-    - target: {fileID: 199982541912562440, guid: 9c2a3ddb3c072466ca678f2a5d6b3182, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 199982541912562440, guid: 9c2a3ddb3c072466ca678f2a5d6b3182, type: 3}
-      propertyPath: m_AllowRoll
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 199982541912562440, guid: 9c2a3ddb3c072466ca678f2a5d6b3182, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
