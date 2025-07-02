@@ -12,7 +12,7 @@ public class StaticHandGesture : MonoBehaviour, IHandGesture
     
     #region Fields
     [SerializeField] private XRHandTrackingEvents _handTrackingEvents;
-    [SerializeField] private XRHandShape _handShape;  // 사용 안함 (테스트용)
+    [SerializeField] private XRHandShape _handShape; 
     [SerializeField] private Transform _targetTransform;
     [SerializeField] private float _minimumHoldTime = 0.2f;
     [SerializeField] private float _gestureDetectionInterval = 0.1f;
