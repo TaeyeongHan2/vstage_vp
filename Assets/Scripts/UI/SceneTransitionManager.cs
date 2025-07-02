@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneTransitionTestManager : MonoBehaviour
+public class SceneTransitionManager : MonoBehaviour
 {
     [Header("Scene Management")]
     public string concertSceneName = "ConcertScene";
