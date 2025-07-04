@@ -44,6 +44,16 @@ public class HandGesture : MonoBehaviour, IHandGesture
             Debug.Log($"HandGesture: HandPose '{_handPose.name}' 설정됨");
     }
     
+    private void Update()
+    {
+        if (_handTrackingEvents != null)
+        {
+            Debug.Log($"handIsTracked: {_handTrackingEvents.handIsTracked}");
+            Debug.Log($"subsystem: {_handTrackingEvents.subsystem}");
+            Debug.Log($"running: {_handTrackingEvents.subsystem?.running}");
+        }
+    }
+    
     private void OnEnable() 
     {
         if (_handTrackingEvents != null)
@@ -56,7 +66,7 @@ public class HandGesture : MonoBehaviour, IHandGesture
             Debug.LogError("HandGesture: _handTrackingEvents가 null입니다!");
         }
     }
-    
+
     private void OnDisable() 
     {
         if (_handTrackingEvents != null)
@@ -64,12 +74,17 @@ public class HandGesture : MonoBehaviour, IHandGesture
             _handTrackingEvents.jointsUpdated.RemoveListener(OnJointsUpdated);
             Debug.Log($"HandGesture: jointsUpdated 리스너 해제됨");
         }
+        else
+        {
+            Debug.Log($"HandGesture: jointsUpdated 리스너 해제 실패");
+        }
     }
     #endregion
 
     #region Private Methods
-    private void OnJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs)
+    public void OnJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs) 
     {
+        Debug.Log("OnJointsUpdated 들어옴");
         if (_isUpdateHandGestureDetectedFrame) 
         {
             // 너무 자주 출력되지 않도록 가끔씩만 로그
