@@ -48,24 +48,44 @@ public class HandGesture : MonoBehaviour, IHandGesture
     {
         if (_handTrackingEvents != null)
         {
-            Debug.Log($"handIsTracked: {_handTrackingEvents.handIsTracked}");
+            Debug.Log($"handIsTracked222: {_handTrackingEvents.subsystem.leftHand.isTracked}");
+            Debug.Log($"handIsTracked111: {_handTrackingEvents.handIsTracked}");
             Debug.Log($"subsystem: {_handTrackingEvents.subsystem}");
             Debug.Log($"running: {_handTrackingEvents.subsystem?.running}");
         }
     }
     
-    private void OnEnable() 
+    // private void OnEnable() 
+    // {
+    //     if (_handTrackingEvents != null)
+    //     {
+    //         _handTrackingEvents.jointsUpdated.AddListener(OnJointsUpdated);
+    //         Debug.Log($"HandGesture: jointsUpdated 리스너 등록됨");
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("HandGesture: _handTrackingEvents가 null입니다!");
+    //     }
+    // }
+    
+    private void OnEnable()
     {
-        if (_handTrackingEvents != null)
-        {
-            _handTrackingEvents.jointsUpdated.AddListener(OnJointsUpdated);
-            Debug.Log($"HandGesture: jointsUpdated 리스너 등록됨");
-        }
-        else
+        if (_handTrackingEvents == null)
         {
             Debug.LogError("HandGesture: _handTrackingEvents가 null입니다!");
+            return;
         }
+
+        _handTrackingEvents.trackingAcquired.AddListener(() =>
+            Debug.Log("[Gesture] TrackingAcquired fired → handIsTracked should now be TRUE"));
+
+        _handTrackingEvents.trackingLost.AddListener(() =>
+            Debug.Log("[Gesture] TrackingLost fired → handIsTracked should now be FALSE"));
+
+        // 기존 jointsUpdated 리스너
+        _handTrackingEvents.jointsUpdated.AddListener(OnJointsUpdated);
     }
+
 
     private void OnDisable() 
     {

@@ -17,4 +17,5 @@ MonoBehaviour:
   m_WindowResizeLimit: 2
   m_MinWindowSize: {x: 0.4, y: 0.4, z: 0.4}
   m_MaxWindowSize: {x: 2, y: 2, z: 2}
+  m_WorldAlignment: 1
   m_IsUniformScale: 0

@@ -92,7 +92,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Samples/XR Interaction Toolkit/3.1.2/Starter Assets/DemoScene.unity
     guid: 319dafa5c80f29f428dc1e0d03f04177
-  - enabled: 1
+  - enabled: 0
     path: Assets/Samples/XR Hands/1.5.1/Gestures/HandGestures.unity
     guid: cd792f2302b8b6f4c9f264e2a4503e15
   m_configObjects:
