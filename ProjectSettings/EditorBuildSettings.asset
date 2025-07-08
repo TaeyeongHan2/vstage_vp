@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MR_PreConcertMenu.unity
     guid: 2bbeee87c51a34d88819ab9ebdc8ff5e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ConcertScene.unity
     guid: f379c3e6dd79743559f8bad2c528c0dc
   - enabled: 0
@@ -95,6 +95,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Samples/XR Hands/1.5.1/Gestures/HandGestures.unity
     guid: cd792f2302b8b6f4c9f264e2a4503e15
+  - enabled: 1
+    path: Assets/Samples/XR Interaction Toolkit/3.1.2/Starter Assets/DemoScene_wonjin.unity
+    guid: 7a8a0504c3b23dd4590a57e94e859b9a
   m_configObjects:
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 4a1a6e5a284c24d65b60d8aa335f1385, type: 2}
     UnityEditor.XR.VisionOS.VisionOSSettings: {fileID: 11400000, guid: e5a62c3ab3e284d25b3a319b2ec00a03, type: 2}

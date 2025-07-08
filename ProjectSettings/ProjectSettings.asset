@@ -835,6 +835,7 @@ PlayerSettings:
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
     Standalone: FUSION_LOGLEVEL_INFO;FUSION_WEAVER;FUSION2
+    VisionOS: FUSION_WEAVER;FUSION2;FUSION_LOGLEVEL_INFO
     iPhone: UNITY_XR_ARKIT_LOADER_ENABLED
   additionalCompilerArguments: {}
   platformArchitecture: {}
