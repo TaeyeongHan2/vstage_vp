@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cqf.urpvolumetricfog": {
+      "version": "https://github.com/CristianQiu/Unity-URP-Volumetric-Light.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "88053c1a52ec57cf2ea0afa30d6e915a1f078686"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.7",
       "depth": 0,
@@ -399,6 +406,12 @@
         "com.unity.xr.arfoundation": "6.0.3"
       },
       "url": "https://packages.unity.com"
+    },
+    "jp.lilxyzw.liltoon": {
+      "version": "file:jp.lilxyzw.liltoon",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
