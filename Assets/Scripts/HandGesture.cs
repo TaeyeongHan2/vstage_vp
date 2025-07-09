@@ -104,18 +104,9 @@ public class HandGesture : MonoBehaviour, IHandGesture
 
     private bool IsDetected(XRHandJointsUpdatedEventArgs eventArgs)
     {
-        // 1. 손 추적 상태 확인
         bool isTracked = _handTrackingEvents.handIsTracked;
-        if (!isTracked)
-        {
-            // 추적되지 않으면 바로 종료
-            if (Time.frameCount % 180 == 0) // 로그가 너무 많이 쌓이지 않도록 조절
-                Debug.Log("[제스처 분석] 1. 손 추적 실패. 감지를 중단합니다.");
-            return false;
-        }
-        Debug.Log("[제스처 분석] 1. 손 추적 성공.");
+        if (!isTracked) return false;
 
-        // 2. 손 모양 또는 포즈 확인
         bool shapeOrPoseDetected = false;
         if (_handShape != null)
         {
@@ -125,43 +116,39 @@ public class HandGesture : MonoBehaviour, IHandGesture
         {
             shapeOrPoseDetected = _handPose.CheckConditions(eventArgs);
         }
-        Debug.Log($"[제스처 분석] 2. 손 모양 일치: {shapeOrPoseDetected}");
-
-        if (!shapeOrPoseDetected)
-        {
-            return false; // 모양이 다르면 바로 종료
-        }
-
-        // 3. 손바닥 방향 체크 확인
-        if (!_requirePalmUp)
-        {
-            Debug.Log("[제스처 분석] 3. 손바닥 방향 체크 비활성화. >> 최종 성공.");
-            return true; // 방향 체크가 필요 없으면 성공
-        }
         
-        Debug.Log("[제스처 분석] 3. 손바닥 방향 체크 활성화됨.");
+        Debug.Log($"[제스처 분석] 1. 손 추적 성공. / 2. 에셋 조건 일치: {shapeOrPoseDetected}");
 
-        // 4. 손바닥 방향 계산
-        var palm = eventArgs.hand.GetJoint(XRHandJointID.Palm);
-        if (palm.TryGetPose(out Pose palmPose))
+        // 에셋 조건이 실패했을 때만 상세 디버그 로그 출력
+        if (!shapeOrPoseDetected && Time.frameCount % 10 == 0) // 로그가 너무 많지 않게 조절
         {
-            float dotUp = Vector3.Dot(palmPose.up, Vector3.up);
-            bool isPalmUp = dotUp >= _palmUpTolerance;
-            Debug.Log($"[제스처 분석] 4. 손바닥 방향 값(Dot Product): {dotUp:F2} (기준: {_palmUpTolerance} 이상) → 결과: {isPalmUp}");
-
-            if (isPalmUp)
+            var palm = eventArgs.hand.GetJoint(XRHandJointID.Palm);
+            if (palm.TryGetPose(out Pose palmPose))
             {
-                Debug.Log("[제스처 분석] >> 최종 성공.");
-                return true; // 모양과 방향이 모두 정확
+                float dotUp = Vector3.Dot(palmPose.up, Vector3.up);
+                Debug.Log($"[실시간 손바닥 방향] up-vector: {palmPose.up.ToString("F2")}, dotUp: {dotUp:F2}, rotation: {palmPose.rotation.eulerAngles.ToString("F1")}");
             }
         }
-        else
+
+        if (!shapeOrPoseDetected) return false;
+        
+        // 에셋 조건이 통과했을 경우, 추가적인 'requirePalmUp' 로직 (필요 시 사용)
+        if (!_requirePalmUp)
         {
-            Debug.Log("[제스처 분석] 4. 손바닥 관절(Palm) 위치를 가져올 수 없음.");
+            return true; 
+        }
+        
+        var palmForCheck = eventArgs.hand.GetJoint(XRHandJointID.Palm);
+        if (palmForCheck.TryGetPose(out Pose palmPoseForCheck))
+        {
+            float dotUp = Vector3.Dot(palmPoseForCheck.up, Vector3.up);
+            if (dotUp >= _palmUpTolerance)
+            {
+                return true;
+            }
         }
 
-        Debug.Log("[제스처 분석] >> 최종 실패 (손바닥 방향 불일치).");
-        return false; // 모양은 맞았지만, 방향이 틀림
+        return false;
     }
     
     private string GetGestureName()
