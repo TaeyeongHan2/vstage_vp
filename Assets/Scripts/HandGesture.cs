@@ -16,7 +16,11 @@ public class HandGesture : MonoBehaviour, IHandGesture
     [SerializeField] private Transform _targetTransform;
     [SerializeField] private float _minimumHoldTime = 0.2f;
     [SerializeField] private float _gestureDetectionInterval = 0.1f;
-    
+    [Tooltip("If true, the gesture will only be detected if the palm is facing upwards.")]
+    [SerializeField] private bool _requirePalmUp = false;
+    [Tooltip("How close to 'perfectly up' the palm must be. 1 is perfect, 0.8 is a good starting value.")]
+    [SerializeField] private float _palmUpTolerance = 0.8f;
+
     private XRHandShape _handShape;
     private XRHandPose _handPose;
     private bool _wasDetected;
@@ -37,22 +41,8 @@ public class HandGesture : MonoBehaviour, IHandGesture
         if (_handPose != null && _handPose.relativeOrientation != null)
             _handPose.relativeOrientation.targetTransform = _targetTransform;
             
-        // 초기 설정 디버그 로그
-        if (_handShape != null)
-            Debug.Log($"HandGesture: HandShape '{_handShape.name}' 설정됨");
-        if (_handPose != null)
-            Debug.Log($"HandGesture: HandPose '{_handPose.name}' 설정됨");
-    }
-    
-    private void Update()
-    {
-        if (_handTrackingEvents != null)
-        {
-            Debug.Log($"handIsTracked222: {_handTrackingEvents.subsystem.leftHand.isTracked}");
-            Debug.Log($"handIsTracked111: {_handTrackingEvents.handIsTracked}");
-            Debug.Log($"subsystem: {_handTrackingEvents.subsystem}");
-            Debug.Log($"running: {_handTrackingEvents.subsystem?.running}");
-        }
+        if (_handShape == null && _handPose == null)
+            Debug.LogError("HandGesture: A valid XRHandShape or XRHandPose must be assigned!", this);
     }
     
     private void OnEnable() 
@@ -60,43 +50,18 @@ public class HandGesture : MonoBehaviour, IHandGesture
         if (_handTrackingEvents != null)
         {
             _handTrackingEvents.jointsUpdated.AddListener(OnJointsUpdated);
-            Debug.Log($"HandGesture: jointsUpdated 리스너 등록됨");
         }
         else
         {
-            Debug.LogError("HandGesture: _handTrackingEvents가 null입니다!");
+            Debug.LogError("HandGesture: _handTrackingEvents is not assigned!", this);
         }
     }
-    
-    // private void OnEnable()
-    // {
-    //     if (_handTrackingEvents == null)
-    //     {
-    //         Debug.LogError("HandGesture: _handTrackingEvents가 null입니다!");
-    //         return;
-    //     }
-    //
-    //     _handTrackingEvents.trackingAcquired.AddListener(() =>
-    //         Debug.Log("[Gesture] TrackingAcquired fired → handIsTracked should now be TRUE"));
-    //
-    //     _handTrackingEvents.trackingLost.AddListener(() =>
-    //         Debug.Log("[Gesture] TrackingLost fired → handIsTracked should now be FALSE"));
-    //
-    //     // 기존 jointsUpdated 리스너
-    //     _handTrackingEvents.jointsUpdated.AddListener(OnJointsUpdated);
-    // }
-
 
     private void OnDisable() 
     {
         if (_handTrackingEvents != null)
         {
             _handTrackingEvents.jointsUpdated.RemoveListener(OnJointsUpdated);
-            Debug.Log($"HandGesture: jointsUpdated 리스너 해제됨");
-        }
-        else
-        {
-            Debug.Log($"HandGesture: jointsUpdated 리스너 해제 실패");
         }
     }
     #endregion
@@ -104,34 +69,21 @@ public class HandGesture : MonoBehaviour, IHandGesture
     #region Private Methods
     public void OnJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs) 
     {
-        Debug.Log("OnJointsUpdated 들어옴");
         if (_isUpdateHandGestureDetectedFrame) 
         {
-            // 너무 자주 출력되지 않도록 가끔씩만 로그
-            if (Time.frameCount % 300 == 0) // 약 5초마다 한 번
-                Debug.Log($"HandGesture: 감지 간격 대기 중... (프레임: {Time.frameCount})");
             return;
         }
 
         var detected = IsDetected(eventArgs);
-        
-        // 핸드 트래킹 상태 로그 (가끔씩)
-        if (Time.frameCount % 300 == 0)
-        {
-            Debug.Log($"HandGesture: 핸드 트래킹 상태 - handIsTracked: {_handTrackingEvents.handIsTracked}, detected: {detected}");
-        }
 
         if (!_wasDetected && detected)
         {
             _holdStartTime = Time.timeSinceLevelLoad;
-            // 제스처가 처음 감지되었을 때 로그
-            Debug.Log($"HandGesture: {GetGestureName()} 🟢제스처 감지 시작!");
+            GestureEnded?.Invoke(); // Clear previous gesture state if any
         }
         else if (_wasDetected && !detected)
         {
             _performedTriggered = false;
-            // 제스처가 끝났을 때 로그
-            Debug.Log($"HandGesture: {GetGestureName()} 🔴제스처 감지 종료");
             GestureEnded?.Invoke();
         }
 
@@ -140,12 +92,8 @@ public class HandGesture : MonoBehaviour, IHandGesture
         if (!_performedTriggered && detected)
         {
             var holdTimer = Time.timeSinceLevelLoad - _holdStartTime;
-            Debug.Log($"HandGesture: {GetGestureName()} 제스처 유지 중... (시간: {holdTimer:F2}초 / 필요: {_minimumHoldTime:F2}초)");
-            
             if (holdTimer > _minimumHoldTime)
             {
-                // 제스처가 최소 시간 이상 유지되어 수행되었을 때 로그
-                Debug.Log($"HandGesture: {GetGestureName()} 제스처 수행됨! (유지 시간: {holdTimer:F2}초)");
                 GesturePerformed?.Invoke();
                 _performedTriggered = true;
             }
@@ -156,37 +104,70 @@ public class HandGesture : MonoBehaviour, IHandGesture
 
     private bool IsDetected(XRHandJointsUpdatedEventArgs eventArgs)
     {
-        bool handShapeDetected = false;
-        bool handPoseDetected = false;
-        
+        // 1. 손 추적 상태 확인
+        bool isTracked = _handTrackingEvents.handIsTracked;
+        if (!isTracked)
+        {
+            // 추적되지 않으면 바로 종료
+            if (Time.frameCount % 180 == 0) // 로그가 너무 많이 쌓이지 않도록 조절
+                Debug.Log("[제스처 분석] 1. 손 추적 실패. 감지를 중단합니다.");
+            return false;
+        }
+        Debug.Log("[제스처 분석] 1. 손 추적 성공.");
+
+        // 2. 손 모양 또는 포즈 확인
+        bool shapeOrPoseDetected = false;
         if (_handShape != null)
         {
-            handShapeDetected = _handShape.CheckConditions(eventArgs);
-            // 가끔씩 HandShape 감지 상태 로그
-            if (Time.frameCount % 300 == 0)
-                Debug.Log($"HandGesture: HandShape '{_handShape.name}' 감지 상태: {handShapeDetected}");
+            shapeOrPoseDetected = _handShape.CheckConditions(eventArgs);
         }
-        
-        if (_handPose != null)
+        else if (_handPose != null)
         {
-            handPoseDetected = _handPose.CheckConditions(eventArgs);
-            // 가끔씩 HandPose 감지 상태 로그
-            if (Time.frameCount % 300 == 0)
-                Debug.Log($"HandGesture: HandPose '{_handPose.name}' 감지 상태: {handPoseDetected}");
+            shapeOrPoseDetected = _handPose.CheckConditions(eventArgs);
+        }
+        Debug.Log($"[제스처 분석] 2. 손 모양 일치: {shapeOrPoseDetected}");
+
+        if (!shapeOrPoseDetected)
+        {
+            return false; // 모양이 다르면 바로 종료
+        }
+
+        // 3. 손바닥 방향 체크 확인
+        if (!_requirePalmUp)
+        {
+            Debug.Log("[제스처 분석] 3. 손바닥 방향 체크 비활성화. >> 최종 성공.");
+            return true; // 방향 체크가 필요 없으면 성공
         }
         
-        bool finalResult = _handTrackingEvents.handIsTracked && (handShapeDetected || handPoseDetected);
-        
-        return finalResult;
+        Debug.Log("[제스처 분석] 3. 손바닥 방향 체크 활성화됨.");
+
+        // 4. 손바닥 방향 계산
+        var palm = eventArgs.hand.GetJoint(XRHandJointID.Palm);
+        if (palm.TryGetPose(out Pose palmPose))
+        {
+            float dotUp = Vector3.Dot(palmPose.up, Vector3.up);
+            bool isPalmUp = dotUp >= _palmUpTolerance;
+            Debug.Log($"[제스처 분석] 4. 손바닥 방향 값(Dot Product): {dotUp:F2} (기준: {_palmUpTolerance} 이상) → 결과: {isPalmUp}");
+
+            if (isPalmUp)
+            {
+                Debug.Log("[제스처 분석] >> 최종 성공.");
+                return true; // 모양과 방향이 모두 정확
+            }
+        }
+        else
+        {
+            Debug.Log("[제스처 분석] 4. 손바닥 관절(Palm) 위치를 가져올 수 없음.");
+        }
+
+        Debug.Log("[제스처 분석] >> 최종 실패 (손바닥 방향 불일치).");
+        return false; // 모양은 맞았지만, 방향이 틀림
     }
     
-    // 현재 설정된 제스처의 이름을 반환하는 헬퍼 메서드
     private string GetGestureName()
     {
-        if (_handShape != null)
-            return _handShape.name;
-        if (_handPose != null)
-            return _handPose.name;
+        if (_handShapeOrPose != null)
+            return _handShapeOrPose.name;
         return "Unknown";
     }
     #endregion
