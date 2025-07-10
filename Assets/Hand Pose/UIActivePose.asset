@@ -19,5 +19,5 @@ MonoBehaviour:
       m_AlignmentCondition: 0
       m_ReferenceDirection: 0
       m_AngleTolerance: 60
-      m_IgnorePositionY: 1
+      m_IgnorePositionY: 0
     m_TargetConditions: []
