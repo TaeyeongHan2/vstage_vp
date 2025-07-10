@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: dba63b95f8a6bb1469ae8c15f8e4fe18, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 01fdbbab00206438686a19e64d0ad0d7, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: dbf7b4380e59ef840a569e4af1f7fbdf, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -10204,6 +10204,52 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1693176346}
   m_SourcePrefab: {fileID: 100100000, guid: 278f7d4bf86719941b8dd5e536515af5, type: 3}
+--- !u!1 &720736698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 720736700}
+  - component: {fileID: 720736699}
+  m_Layer: 0
+  m_Name: Network Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &720736699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720736698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d872591f6ac3b4289ee18de4393ede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hostAvatarPrefab:
+    RawGuidValue: 630f0fe1e96544941b4d741122ea42fe
+--- !u!4 &720736700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720736698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.64986, y: 0, z: 1.64986}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &722622666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27725,3 +27771,4 @@ SceneRoots:
   - {fileID: 1911278650}
   - {fileID: 94554643}
   - {fileID: 646621513}
+  - {fileID: 720736700}

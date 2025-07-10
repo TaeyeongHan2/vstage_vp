@@ -34,19 +34,10 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
     }
-    private void OnGUI()
+    private void Start()
     {
-        if (_runner == null)
-        {
-            if (GUI.Button(new Rect(0,0,200,40), "Host"))
-            {
-                StartGame(GameMode.Host);
-            }
-            if (GUI.Button(new Rect(0,40,200,40), "Join"))
-            {
-                StartGame(GameMode.Client);
-            }
-        }
+        // 자동으로 클라이언트로 접속
+        StartGame(GameMode.Client);
     }
     
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
