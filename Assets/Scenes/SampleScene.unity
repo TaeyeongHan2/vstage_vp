@@ -9259,7 +9259,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   OpenWindowOnLoad: 1
   m_TargetDisplay: 0
-  m_ShowVolumeCameraEventsFoldout: 0
+  m_ShowVolumeCameraEventsFoldout: 1
   WindowStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -12282,7 +12282,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -27719,9 +27719,9 @@ SceneRoots:
   - {fileID: 147644359}
   - {fileID: 2102324138}
   - {fileID: 2062655980}
+  - {fileID: 178765593}
+  - {fileID: 910433201}
+  - {fileID: 540811085}
   - {fileID: 1911278650}
   - {fileID: 94554643}
   - {fileID: 646621513}
-  - {fileID: 540811085}
-  - {fileID: 178765593}
-  - {fileID: 910433201}
