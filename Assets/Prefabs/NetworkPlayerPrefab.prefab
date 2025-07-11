@@ -66,18 +66,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vrik: {fileID: 713340471332059177}
-  headTarget: {fileID: 0}
-  leftHandTarget: {fileID: 0}
-  rightHandTarget: {fileID: 0}
-  waistTarget: {fileID: 0}
-  leftFootTarget: {fileID: 0}
-  rightFootTarget: {fileID: 0}
-  interpolationSpeed: 20
-  maxErrorSqrMag: 4
-  remoteMaterial: {fileID: 0}
+  animator: {fileID: 0}
   _BoneRotations: []
   _RootPosition: {x: 0, y: 0, z: 0}
   _RootRotation: {x: 0, y: 0, z: 0, w: 0}
+  _IsDataInitialized: 0
+  _FacialJaw: 0
+  _FacialSmile: 0
+  _FacialWide: 0
+  _FacialO: 0
+  _FacialSad: 0
+  _FacialTongue: 0
 --- !u!1001 &8469863644621160629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,7 +129,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shinano_kisekae Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7717300699729308781, guid: a1957499c14ca4b43a3d2b972bf42f22, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
