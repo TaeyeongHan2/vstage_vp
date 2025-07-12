@@ -18,6 +18,9 @@ namespace MicRecordFunction
         private Vector3 originalPosition;
         private Quaternion originalRotation;
         private bool isFollowing = false;
+        
+        [Header("왼손바닥 위에 있던 위치")]
+        public Transform leftHandTarget;
 
         private void Start()
         {
@@ -63,15 +66,29 @@ namespace MicRecordFunction
             }
         }
 
-        //제스처 감지 추가해서 녹음 기능 꺼지고 원래 왼손 바닥의 위치로 돌아가는 부분 추가할 예정
-        public void StopFollowingAndReturn()
+        //제스처 감지 추가해서 녹음 기능 꺼지고 원래 왼손 바닥의 위치로 돌아가는 부분 추가
+        public void OnGrabGestureReleased()
         {
-            isFollowing = false;
-            transform.position = originalPosition;
-            transform.rotation = originalRotation;
-
             StopRecording();
+            isFollowing = false;
+
+            // 왼손의 palm 아래로 다시 이동
+            transform.SetParent(leftHandTarget);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
+
+            Debug.Log("[MicComponent] 주먹 제스처 풀림 -> 녹음 종료 + 왼손으로 복귀");
         }
+
+        
+        // public void StopFollowingAndReturn()
+        // {
+        //     isFollowing = false;
+        //     transform.position = originalPosition;
+        //     transform.rotation = originalRotation;
+        //
+        //     StopRecording();
+        // }
 
         //녹음 켜지는 기능
         private void StartRecording()
