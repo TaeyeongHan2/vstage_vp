@@ -33,10 +33,10 @@ namespace VStage.Networking
 
         [Header("Facial Tracking")]
         /// <summary>
-        /// 페이셜 트래킹 컴포넌트 (현재 주석 처리됨)
-        /// Host의 얼굴 표정을 읽어 네트워크로 전송하는 역할
+        /// 페이셜 트래킹 컴포넌트
+        /// Host의 얼굴 표정을 읽어 네트워크로 전송하거나, Client에서 RPC를 통해 표정 적용
         /// </summary>
-        //[SerializeField] private SimpleShinanoFacialTracking facialTracking;
+        [SerializeField] private SimpleShinanoFacialTracking facialTracking;
 
         // VR Target Objects는 이름으로 자동 검색됩니다
         /// <summary>
@@ -220,8 +220,8 @@ namespace VStage.Networking
             Debug.Log($"Animator found: {animator != null}, Enabled: {(animator != null ? animator.enabled : false)}");
 
             // Facial Tracking 컴포넌트 자동 검색 (현재 주석 처리)
-            // if (facialTracking == null) facialTracking = GetComponentInChildren<SimpleShinanoFacialTracking>();
-            // Debug.Log($"Facial Tracking found: {facialTracking != null}, Enabled: {(facialTracking != null ? facialTracking.enabled : false)}");
+            if (facialTracking == null) facialTracking = GetComponentInChildren<SimpleShinanoFacialTracking>();
+            Debug.Log($"Facial Tracking found: {facialTracking != null}, Enabled: {(facialTracking != null ? facialTracking.enabled : false)}");
             //
             if (isHost)
             {
@@ -252,13 +252,14 @@ namespace VStage.Networking
                     Debug.Log($"Animator enabled after: {animator.enabled}");
                 }
 
-                // Facial Tracking도 비활성화 (네트워크 데이터를 직접 받음)
-                // if (facialTracking != null)
-                // {
-                //     Debug.Log($"Facial Tracking enabled before: {facialTracking.enabled}");
-                //     facialTracking.enabled = false; // 페이셜 트래킹 비활성화, 네트워크 데이터 사용
-                //     Debug.Log($"Facial Tracking enabled after: {facialTracking.enabled}");
-                // }
+                // Facial Tracking은 RPC 수신을 위해 활성화 유지 (네트워크 데이터를 RPC로 받음)
+                if (facialTracking != null)
+                {
+                    Debug.Log($"Facial Tracking enabled before: {facialTracking.enabled}");
+                    // Client에서도 RPC 수신을 위해 활성화 유지
+                    facialTracking.enabled = true; // RPC 수신을 위해 활성화 유지
+                    Debug.Log($"Facial Tracking enabled after: {facialTracking.enabled} (Client: RPC receiver mode)");
+                }
 
                 CacheBoneReferences();
                 SaveInitialBoneStates();
@@ -758,46 +759,55 @@ namespace VStage.Networking
             }
 
             // 페이셜 트래킹 데이터 송신 (현재 주석 처리)
-            //UpdateFacialData();
+            UpdateFacialData();
         }
 
         /// <summary>
-        /// Host에서 페이셜 트래킹 데이터를 읽어 네트워크로 송신하는 메서드 (현재 주석 처리)
-        /// 6가지 주요 표정(턱, 미소, 입벌림, 입오므림, 슬픔, 혀내밀기)을 전송
-        /// 실제 구현 시 주석을 해제하여 사용
+        /// Host에서 페이셜 트래킹 데이터를 읽어 RPC로 클라이언트들에게 송신하는 메서드
+        /// SimpleShinanoFacialTracking에서 현재 표정 데이터를 읽어와서 RPC로 전송
+        /// Host에서만 호출되며, 모든 클라이언트가 동일한 표정을 재생
         /// </summary>
-        // private void UpdateFacialData()
-        // {
-        //     if (facialTracking != null && facialTracking.IsFacialTrackingActive())
-        //     {
-        //         // 호스트에서 페이셜 데이터 읽기
-        //         facialTracking.GetFacialData(out float jaw, out float smile, out float wide, out float o, out float sad, out float tongue);
-        //         
-        //         // 네트워크로 전송
-        //         FacialJaw = jaw;
-        //         FacialSmile = smile;
-        //         FacialWide = wide;
-        //         FacialO = o;
-        //         FacialSad = sad;
-        //         FacialTongue = tongue;
-        //         
-        //         // 상세 디버그: 페이셜 데이터 송신 (5초마다)
-        //         if (dataUpdateCount % 300 == 0)
-        //         {
-        //             Debug.Log($"Host Facial Send: Jaw={jaw:F2}, Smile={smile:F2}, Wide={wide:F2}, O={o:F2}, Sad={sad:F2}, Tongue={tongue:F2}");
-        //         }
-        //     }
-        //     else
-        //     {
-        //         // 페이셜 트래킹이 비활성화된 경우 모든 값을 0으로 설정
-        //         FacialJaw = FacialSmile = FacialWide = FacialO = FacialSad = FacialTongue = 0f;
-        //         
-        //         if (dataUpdateCount % 600 == 0) // 10초마다
-        //         {
-        //             Debug.LogWarning("Host: Facial tracking inactive - sending zero values");
-        //         }
-        //     }
-        // }
+        private void UpdateFacialData()
+        {
+            if (facialTracking != null && facialTracking.IsFacialTrackingActive())
+            {
+                // Host에서 페이셜 데이터 읽기 (SimpleShinanoFacialTracking에서)
+                facialTracking.GetFacialData(out float jaw, out float smile, out float wide, out float o, out float sad, out float tongue);
+                
+                // 네트워크 변수에 저장 (기존 방식 유지 - 호환성)
+                FacialJaw = jaw;
+                FacialSmile = smile;
+                FacialWide = wide;
+                FacialO = o;
+                FacialSad = sad;
+                FacialTongue = tongue;
+                
+                // RPC를 통해 모든 클라이언트에게 즉시 전송
+                facialTracking.RPC_UpdateFacialExpression(jaw, smile, wide, o, sad, tongue);
+                
+                // 상세 디버그: 페이셜 데이터 송신 (5초마다)
+                if (dataUpdateCount % 300 == 0)
+                {
+                    Debug.Log($"Host Facial Send (RPC): Jaw={jaw:F2}, Smile={smile:F2}, Wide={wide:F2}, O={o:F2}, Sad={sad:F2}, Tongue={tongue:F2}");
+                }
+            }
+            else
+            {
+                // 페이셜 트래킹이 비활성화된 경우 모든 값을 0으로 설정
+                FacialJaw = FacialSmile = FacialWide = FacialO = FacialSad = FacialTongue = 0f;
+                
+                // 모든 표정을 리셋하는 RPC 전송
+                if (facialTracking != null)
+                {
+                    facialTracking.RPC_ResetAllExpressions();
+                }
+                
+                if (dataUpdateCount % 600 == 0) // 10초마다
+                {
+                    Debug.LogWarning("Host: Facial tracking inactive - sending reset RPC");
+                }
+            }
+        }
 
         /// <summary>
         /// Client에서 Host로부터 받은 본 데이터를 아바타에 적용하는 메서드
@@ -931,53 +941,57 @@ namespace VStage.Networking
             }
 
             // 페이셜 트래킹 데이터 적용 (현재 주석 처리)
-            //ApplyFacialData();
+            ApplyFacialData();
         }
 
         /// <summary>
-        /// Client에서 Host로부터 받은 페이셜 트래킹 데이터를 적용하는 메서드 (현재 주석 처리)
-        /// 6가지 주요 표정을 아바타에 실시간으로 반영
-        /// 실제 구현 시 주석을 해제하여 사용
+        /// Client에서 Host로부터 받은 페이셜 트래킹 데이터 상태를 모니터링하는 메서드
+        /// 실제 페이셜 적용은 SimpleShinanoFacialTracking의 RPC에서 처리됨
+        /// 이 메서드는 디버깅과 상태 모니터링 용도로만 사용
         /// </summary>
-        // private void ApplyFacialData()
-        // {
-        //     if (facialTracking != null)
-        //     {
-        //         // 클라이언트에서 받은 페이셜 데이터 적용
-        //         facialTracking.SetFacialData(FacialJaw, FacialSmile, FacialWide, FacialO, FacialSad, FacialTongue);
-        //         
-        //         // 상세 디버그: 페이셜 데이터 수신 (5초마다)
-        //         if (dataUpdateCount % 300 == 0)
-        //         {
-        //             Debug.Log($"Client Facial Applied: Jaw={FacialJaw:F2}, Smile={FacialSmile:F2}, Wide={FacialWide:F2}, O={FacialO:F2}, Sad={FacialSad:F2}, Tongue={FacialTongue:F2}");
-        //         }
-        //         
-        //         // 활성 표정 개수 체크
-        //         int activeFacials = 0;
-        //         if (FacialJaw > 0.01f) activeFacials++;
-        //         if (FacialSmile > 0.01f) activeFacials++;
-        //         if (FacialWide > 0.01f) activeFacials++;
-        //         if (FacialO > 0.01f) activeFacials++;
-        //         if (FacialSad > 0.01f) activeFacials++;
-        //         if (FacialTongue > 0.01f) activeFacials++;
-        //         
-        //         if (dataUpdateCount % 600 == 0) // 10초마다
-        //         {
-        //             Debug.Log($"Client Facial Status: {activeFacials}/6 expressions active");
-        //             if (activeFacials == 0)
-        //             {
-        //                 Debug.LogWarning("Client: No facial expressions detected - check host facial tracking");
-        //             }
-        //         }
-        //     }
-        //     else
-        //     {
-        //         if (dataUpdateCount % 600 == 0) // 10초마다
-        //         {
-        //             Debug.LogWarning("Client: No facial tracking component found");
-        //         }
-        //     }
-        // }
+        private void ApplyFacialData()
+        {
+            if (facialTracking != null)
+            {
+                // RPC 방식에서는 SimpleShinanoFacialTracking이 직접 처리하므로
+                // 여기서는 상태 모니터링만 수행
+                
+                // 상세 디버그: 페이셜 데이터 수신 상태 (5초마다)
+                if (dataUpdateCount % 300 == 0)
+                {
+                    Debug.Log($"Client Facial Status (Network Variables): Jaw={FacialJaw:F2}, Smile={FacialSmile:F2}, Wide={FacialWide:F2}, O={FacialO:F2}, Sad={FacialSad:F2}, Tongue={FacialTongue:F2}");
+                }
+                
+                // 활성 표정 개수 체크 (네트워크 변수 기준)
+                int activeFacials = 0;
+                if (FacialJaw > 0.01f) activeFacials++;
+                if (FacialSmile > 0.01f) activeFacials++;
+                if (FacialWide > 0.01f) activeFacials++;
+                if (FacialO > 0.01f) activeFacials++;
+                if (FacialSad > 0.01f) activeFacials++;
+                if (FacialTongue > 0.01f) activeFacials++;
+                
+                if (dataUpdateCount % 600 == 0) // 10초마다
+                {
+                    Debug.Log($"Client Facial Status: {activeFacials}/6 expressions active (via Network Variables)");
+                    if (activeFacials == 0)
+                    {
+                        Debug.LogWarning("Client: No facial expressions detected in network variables - check host facial tracking or RPC transmission");
+                    }
+                    else
+                    {
+                        Debug.Log($"Client: Facial data being received properly. RPC handling should be active on SimpleShinanoFacialTracking component.");
+                    }
+                }
+            }
+            else
+            {
+                if (dataUpdateCount % 600 == 0) // 10초마다
+                {
+                    Debug.LogWarning("Client: No SimpleShinanoFacialTracking component found - facial expressions will not work");
+                }
+            }
+        }
 
         /// <summary>
         /// 위치 데이터의 유효성을 검증하는 메서드
@@ -1052,6 +1066,7 @@ namespace VStage.Networking
             Debug.Log($"=== COMPONENT STATUS ===");
             Debug.Log($"VRIK: {(vrik != null ? $"Found, Enabled={vrik.enabled}" : "NULL")}");
             Debug.Log($"Animator: {(animator != null ? $"Found, Enabled={animator.enabled}" : "NULL")}");
+            Debug.Log($"Facial Tracking: {(facialTracking != null ? $"Found, Enabled={facialTracking.enabled}" : "NULL")}");
 
             Debug.Log($"=== BONE REFERENCES ===");
             Debug.Log($"BoneCount: {boneCount}");
