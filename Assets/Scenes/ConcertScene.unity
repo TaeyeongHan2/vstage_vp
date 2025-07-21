@@ -5830,7 +5830,7 @@ MonoBehaviour:
   m_Dimensions: {x: 1, y: 1, z: 1}
   m_ScaleWithWindow: 1
   m_IsUniformScale: 0
-  m_OutputConfiguration: {fileID: 11400000, guid: 238c22a9cc411490683b3ba0fd3f2bda, type: 2}
+  m_OutputConfiguration: {fileID: 11400000, guid: 4f7437d5160ed47b587f55d38bea3872, type: 2}
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

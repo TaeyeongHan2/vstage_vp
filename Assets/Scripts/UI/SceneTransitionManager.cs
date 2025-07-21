@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class SceneTransitionManager : MonoBehaviour
 {
     [Header("Scene Management")]
-    public string concertSceneName = "ConcertScene";
+    public string concertSceneName = "MicGrabFunc";
     
     [Header("UI References")]
     public GameObject startButton;
