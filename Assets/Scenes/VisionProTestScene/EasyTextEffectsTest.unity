@@ -7438,8 +7438,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Gradient
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a22779d3e0da4414685d90123902d080, type: 2}
-  m_sharedMaterial: {fileID: -5484475325105853923, guid: a22779d3e0da4414685d90123902d080, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4bcaec4c198ad491eb1fb854f9f3756c, type: 2}
+  m_sharedMaterial: {fileID: -2197594226954793286, guid: 4bcaec4c198ad491eb1fb854f9f3756c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
