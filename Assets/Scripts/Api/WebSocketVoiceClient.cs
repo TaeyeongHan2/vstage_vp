@@ -34,6 +34,10 @@ public class WebSocketVoiceClient : MonoBehaviour
         {
             string message = Encoding.UTF8.GetString(bytes);
             Debug.Log("[AI TEXT 응답] " + message);
+
+            string text = message;
+            AIResponseStore.Instance?.UpdateTranscription(text);
+            
         };
 
         triggerSocket.OnOpen += () =>
@@ -151,4 +155,4 @@ public class AIMessage
     public string type { get; set; }
     public List<string> top_keywords { get; set; }
     public List<string> top_emotions { get; set; }
-}
+ }

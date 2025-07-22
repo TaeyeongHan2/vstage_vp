@@ -8,6 +8,9 @@ public class AIResponseStore : MonoBehaviour
 
     public List<string> LatestKeywords { get; private set; } = new();
     public List<string> LatestEmotions { get; private set; } = new();
+    
+    public string LatestTranscription { get; private set; }
+    public event Action OnTranscriptionUpdated;
 
     public event Action OnDataUpdated;
 
@@ -20,6 +23,12 @@ public class AIResponseStore : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void UpdateTranscription(string t)
+    {
+        LatestTranscription = t;
+        OnTranscriptionUpdated?.Invoke();
     }
 
     public void UpdateData(List<string> keywords, List<string> emotions)
