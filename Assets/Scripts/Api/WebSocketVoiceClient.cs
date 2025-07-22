@@ -155,4 +155,4 @@ public class AIMessage
     public string type { get; set; }
     public List<string> top_keywords { get; set; }
     public List<string> top_emotions { get; set; }
-}
+ }
