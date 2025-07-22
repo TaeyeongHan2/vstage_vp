@@ -1365,6 +1365,22 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 208
       objectReference: {fileID: 0}
+    - target: {fileID: 209243970515534569, guid: 051d4af6261c64281bace99d8646acf2, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 209243970515534569, guid: 051d4af6261c64281bace99d8646acf2, type: 3}
+      propertyPath: m_CheckFor2DOcclusion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 209243970515534569, guid: 051d4af6261c64281bace99d8646acf2, type: 3}
+      propertyPath: m_CheckFor3DOcclusion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 209243970515534569, guid: 051d4af6261c64281bace99d8646acf2, type: 3}
+      propertyPath: m_IgnoreReversedGraphics
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1382514324155348243, guid: 051d4af6261c64281bace99d8646acf2, type: 3}
       propertyPath: m_SizeDelta.y
       value: 141
