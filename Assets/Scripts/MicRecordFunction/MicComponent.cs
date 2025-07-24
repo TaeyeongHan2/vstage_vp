@@ -33,6 +33,7 @@ namespace MicRecordFunction
         
         [Header("충돌 시 비활성화할 오브젝트")]
         public GameObject disableRightHandMesh;
+        public GameObject disableLeftHandGesFunc;
         
 
         private void Start()
@@ -65,6 +66,11 @@ namespace MicRecordFunction
                 if (disableRightHandMesh != null)
                 {
                     disableRightHandMesh.SetActive(false);
+                }
+
+                if (disableLeftHandGesFunc != null)
+                {
+                    disableLeftHandGesFunc.SetActive(false);
                 }
                 
                 _isFollowing = true;
