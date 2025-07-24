@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: dde12be9306fd274ca20d0504fdf0165, type: 2}
     - target: {fileID: 919132149155446097, guid: 62ba444a80406fe45a4edef5378ac3c5, type: 3}
       propertyPath: m_Name
-      value: Light stick
+      value: Light stick Bear
       objectReference: {fileID: 0}
     - target: {fileID: 3695666860197271449, guid: 62ba444a80406fe45a4edef5378ac3c5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

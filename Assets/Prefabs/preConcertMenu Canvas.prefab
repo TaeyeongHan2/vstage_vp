@@ -1733,7 +1733,6 @@ GameObject:
   - component: {fileID: 3664282530273511971}
   - component: {fileID: 4075326467714982815}
   - component: {fileID: 8102963271592181845}
-  - component: {fileID: 5526453027145899885}
   - component: {fileID: 209243970515534569}
   - component: {fileID: 1600778936835751146}
   m_Layer: 5
@@ -1829,14 +1828,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!222 &5526453027145899885
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3505178282823859063}
-  m_CullTransparentMesh: 0
 --- !u!114 &209243970515534569
 MonoBehaviour:
   m_ObjectHideFlags: 0
