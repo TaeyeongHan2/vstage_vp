@@ -24,8 +24,8 @@ namespace MicRecordFunction
         
         [Header("손 추적 관련")]
         public Transform followTarget;
-        private Vector3 _originalPosition;
-        private Quaternion _originalRotation;
+        // private Vector3 _originalPosition;
+        // private Quaternion _originalRotation;
         private bool _isFollowing = false;
         
         [Header("왼손바닥 위에 있던 위치")]
@@ -33,11 +33,12 @@ namespace MicRecordFunction
         
         [Header("충돌 시 비활성화할 오브젝트")]
         public GameObject disableRightHandMesh;
+        
 
         private void Start()
         {
-            _originalPosition = transform.position;
-            _originalRotation = transform.rotation;
+            // _originalPosition = transform.position;
+            // _originalRotation = transform.rotation;
 
             if (audioSource == null)
                 audioSource = GetComponent<AudioSource>();
@@ -65,9 +66,10 @@ namespace MicRecordFunction
                 {
                     disableRightHandMesh.SetActive(false);
                 }
-
-                followTarget = other.transform;
+                
                 _isFollowing = true;
+                transform.position = followTarget.position;
+                transform.rotation = followTarget.rotation;
 
                 StartRecording();
                 
