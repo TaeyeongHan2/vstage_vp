@@ -6,9 +6,6 @@ public class TMP_PRO : MonoBehaviour
 {
     public TMP_Text keywordText;
     public TMP_Text emotionText;
-    
-    [Header("화면 표시용 텍스트")]
-    public TMP_Text transcriptionText;
 
     void Start()
     {
@@ -25,11 +22,9 @@ public class TMP_PRO : MonoBehaviour
 
         // 이벤트 구독
         AIResponseStore.Instance.OnDataUpdated += UpdateText;
-        AIResponseStore.Instance.OnTranscriptionUpdated += UpdateTranscription;
 
         // 기존 데이터로 한 번 즉시 갱신
         UpdateText();
-        UpdateTranscription();
     }
 
     public void UpdateText()
@@ -60,14 +55,6 @@ public class TMP_PRO : MonoBehaviour
         }
     }
 
-    void UpdateTranscription() 
-    { 
-        
-        if (transcriptionText == null) return;
-        transcriptionText.text = AIResponseStore.Instance.LatestTranscription;
-        transcriptionText.ForceMeshUpdate();
-    }
-    
     void OnDestroy()
     {
         if (AIResponseStore.Instance != null)
