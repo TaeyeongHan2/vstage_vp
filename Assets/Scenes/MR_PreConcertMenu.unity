@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
+  m_RequiresDepthTextureOption: 1
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
@@ -639,6 +639,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 773853689519989575, guid: b3ed8a0a703ebd34a9e44ed3d9f1fcf6, type: 3}
   m_PrefabInstance: {fileID: 666425127}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &666425130 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 639686448, guid: b3ed8a0a703ebd34a9e44ed3d9f1fcf6, type: 3}
+  m_PrefabInstance: {fileID: 666425127}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666425129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b9cf54c47f40ee9c3eb30ea8eb89b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &861632749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,10 +1749,14 @@ PrefabInstance:
       propertyPath: _handTrackingEvents
       value: 
       objectReference: {fileID: 435570712}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2619762965317241520, guid: a8af03198fce74809bad6ecbaf336411, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1263939039973578573, guid: a8af03198fce74809bad6ecbaf336411, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3317911190542658355}
   m_SourcePrefab: {fileID: 100100000, guid: a8af03198fce74809bad6ecbaf336411, type: 3}
 --- !u!114 &3317911190542658353 stripped
 MonoBehaviour:
@@ -1754,6 +1769,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b9cf54c47f40ee9c3eb30ea8eb89b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3317911190542658354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1263939039973578573, guid: a8af03198fce74809bad6ecbaf336411, type: 3}
+  m_PrefabInstance: {fileID: 3317911190542658352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3317911190542658355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317911190542658354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43525292d7ba145638a25510245d4da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1599319292}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  GestureEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1599319292}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _handShapeOrPose: {fileID: 11400000, guid: 85bf3684a0c4b4980b605ab0990dbf3c, type: 2}
+  _handTrackingEvents: {fileID: 666425130}
+  _minimumHoldTime: 0.2
+  _gestureDetectionInterval: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
