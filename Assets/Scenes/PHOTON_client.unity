@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 92b38f94067994dc48a025b7e468a14b, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 01fdbbab00206438686a19e64d0ad0d7, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: dbf7b4380e59ef840a569e4af1f7fbdf, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -884,6 +884,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8bca95f7c947b4db5fb152a0d693d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anisotropy: 0.25
+  scattering: 1
+  radius: 0.2
 --- !u!114 &78717169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8990,6 +8993,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33acc3b6f04fc124fa646203f42ed25f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Dimensions: {x: 1, y: 1, z: 1}
+  m_ScaleWithWindow: 1
+  m_IsUniformScale: 0
+  m_OutputConfiguration: {fileID: 11400000, guid: c141c6d819fe54420b1c524360b3915b, type: 2}
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  OpenWindowOnLoad: 1
+  m_TargetDisplay: 0
+  m_ShowVolumeCameraEventsFoldout: 1
+  WindowStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  ViewpointChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &646621513
 Transform:
   m_ObjectHideFlags: 0
@@ -13063,6 +13082,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8bca95f7c947b4db5fb152a0d693d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anisotropy: 0.25
+  scattering: 1
+  radius: 0.2
 --- !u!114 &953645573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26736,7 +26758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedBakingSet: {fileID: 11400000, guid: eada862ee21dd0c43aba489bcf4ba4dd, type: 2}
-  sceneGUID: 3fd8ad98b3c234cdf8deddced1cd5fbc
+  sceneGUID: c11e2a14c9b1f73468c9ddf46606930e
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
   obsoleteCellSupportDataAsset: {fileID: 0}
