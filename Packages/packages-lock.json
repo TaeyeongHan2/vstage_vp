@@ -303,8 +303,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.arfoundation": {
-      "version": "6.1.1",
-      "depth": 1,
+      "version": "6.2.0",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "2.0.0",
@@ -334,7 +334,7 @@
     },
     "com.unity.xr.core-utils": {
       "version": "2.5.2",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.xr": "1.0.0"
@@ -406,7 +406,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.visionos": {
-      "version": "2.2.4",
+      "version": "2.3.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -415,6 +415,12 @@
         "com.unity.xr.arfoundation": "6.0.3"
       },
       "url": "https://packages.unity.com"
+    },
+    "jp.lilxyzw.liltoon": {
+      "version": "file:jp.lilxyzw.liltoon",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
