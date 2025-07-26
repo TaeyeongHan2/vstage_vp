@@ -7051,7 +7051,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keywordText: {fileID: 2104691018}
   emotionText: {fileID: 1736654543}
-  transcriptionText: {fileID: 1695786283}
 --- !u!1 &1531397012
 GameObject:
   m_ObjectHideFlags: 0

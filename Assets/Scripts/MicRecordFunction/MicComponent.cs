@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 using System.IO;
 using System.Text;
 
@@ -35,6 +36,9 @@ namespace MicRecordFunction
         public GameObject disableRightHandMesh;
         public GameObject disableLeftHandGesFunc;
         
+        [Header("녹음 중 UI")]
+        public GameObject recordingUI;
+        private Coroutine blinkCoroutine;
 
         private void Start()
         {
@@ -54,6 +58,10 @@ namespace MicRecordFunction
             {
                 Debug.LogError("[MicComponent] 마이크를 찾을 수 없음!");
             }
+            
+            // 녹음 UI는 시작 시 꺼둠
+            if (recordingUI != null)
+                recordingUI.SetActive(false);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -109,6 +117,20 @@ namespace MicRecordFunction
             Debug.Log("[MicComponent] 주먹 제스처 풀림 -> 녹음 종료 + 왼손으로 복귀");
         }
         
+        private IEnumerator BlinkUI()
+        {
+            while (true)
+            {
+                // UI를 끄고
+                recordingUI.SetActive(false);
+                yield return new WaitForSeconds(0.5f);
+
+                // UI를 켜고
+                recordingUI.SetActive(true);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+        
         //녹음 켜지는 기능 (MicRecorder에서 가져온 로직 적용)
         private void StartRecording()
         {
@@ -119,6 +141,13 @@ namespace MicRecordFunction
             _audioClip = Microphone.Start(_micDevice, true, maxRecordingDuration, sampleRate);
             startSample = Microphone.GetPosition(_micDevice);
             _isRecording = true;
+            
+            // UI 켜고 깜빡임 시작
+            if (recordingUI != null)
+            {
+                recordingUI.SetActive(true);
+                blinkCoroutine = StartCoroutine(BlinkUI());
+            }
         }
 
         //녹음 중지하고 웹소켓으로 전송하는 기능 (MicRecorder에서 가져온 로직 적용)
@@ -131,6 +160,13 @@ namespace MicRecordFunction
             int endSample = Microphone.GetPosition(_micDevice);
             Microphone.End(_micDevice);
             _isRecording = false;
+            
+            // UI 끄기 + 깜빡임 종료
+            if (recordingUI != null)
+            {
+                if (blinkCoroutine != null) StopCoroutine(blinkCoroutine);
+                recordingUI.SetActive(false);
+            }
 
             float[] fullData = new float[_audioClip.samples * _audioClip.channels];
             _audioClip.GetData(fullData, 0);
