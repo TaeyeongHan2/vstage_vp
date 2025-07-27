@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: 9cc4f9853c7fe41db81ba1322ee726af
-AssetOrigin:
-  serializedVersion: 1
-  productId: 267958
-  packageName: Photon Fusion
-  packageVersion: 2.0.6
-  assetPath: Assets/Photon/Fusion/Plugins/NanoSockets/visionOS/libnanosockets.a
-  uploadId: 755233
+guid: 7569d9b14837d452caf420fa9f3e9fc7
 PluginImporter:
   externalObjects: {}
   serializedVersion: 3
@@ -18,62 +11,49 @@ PluginImporter:
   isExplicitlyReferenced: 0
   validateReferences: 1
   platformData:
-    Android:
-      enabled: 0
-      settings:
-        AndroidSharedLibraryType: Executable
-        CPU: ARMv7
     Any:
-      enabled: 0
+      enabled: 1
       settings:
-        Exclude Android: 1
-        Exclude Editor: 1
-        Exclude Linux64: 1
-        Exclude OSXUniversal: 1
+        Exclude Editor: 0
+        Exclude Linux64: 0
+        Exclude OSXUniversal: 0
         Exclude VisionOS: 0
-        Exclude Win: 1
-        Exclude Win64: 1
-        Exclude iOS: 1
-        Exclude tvOS: 1
+        Exclude Win: 0
+        Exclude Win64: 0
+        Exclude iOS: 0
     Editor:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
         DefaultValueInitialized: true
         OS: AnyOS
     Linux64:
-      enabled: 0
+      enabled: 1
       settings:
-        CPU: None
+        CPU: x86_64
     OSXUniversal:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: None
     VisionOS:
       enabled: 1
       settings:
         AddToEmbeddedBinaries: false
-        CPU: ARM64
+        CPU: AnyCPU
         CompileFlags: 
-        FrameworkDependencies: 
+        FrameworkDependencies: CoreVideo;
     Win:
-      enabled: 0
+      enabled: 1
       settings:
-        CPU: None
+        CPU: x86
     Win64:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: None
     iOS:
-      enabled: 0
+      enabled: 1
       settings:
         AddToEmbeddedBinaries: false
-        CPU: AnyCPU
-        CompileFlags: 
-        FrameworkDependencies: 
-    tvOS:
-      enabled: 0
-      settings:
         CPU: AnyCPU
         CompileFlags: 
         FrameworkDependencies: 
