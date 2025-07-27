@@ -29,5 +29,6 @@ public class PerformanceController : NetworkBehaviour
     {
         ShowStartNetworkTick = networkTick;
         isShowStartedLocally = true;
+        Debug.Log("관객 - StartShowRPC 호출됨! networkTick:" + networkTick);
     }
 }
