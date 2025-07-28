@@ -136,42 +136,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1263939039973578573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb3d9b5400f44fefbf60ef877391a4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 43525292d7ba145638a25510245d4da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GesturePerformed:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   GestureEnded:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _handTrackingEvents: {fileID: 2577958276072180792}
-  _handShapeOrPose: {fileID: 11400000, guid: c152529f67254c144b89dbc009456976, type: 2}
-  _targetTransform: {fileID: 0}
+      m_Calls: []
+  _handShapeOrPose: {fileID: 0}
+  _handTrackingEvents: {fileID: 0}
   _minimumHoldTime: 0.2
   _gestureDetectionInterval: 0.1
 --- !u!1 &1960423311255440644
@@ -215,7 +190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1960423311255440644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb3d9b5400f44fefbf60ef877391a4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 43525292d7ba145638a25510245d4da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GesturePerformed:
@@ -224,9 +199,8 @@ MonoBehaviour:
   GestureEnded:
     m_PersistentCalls:
       m_Calls: []
-  _handTrackingEvents: {fileID: 0}
   _handShapeOrPose: {fileID: 0}
-  _targetTransform: {fileID: 0}
+  _handTrackingEvents: {fileID: 0}
   _minimumHoldTime: 0.2
   _gestureDetectionInterval: 0.1
 --- !u!1 &8006119038400870161

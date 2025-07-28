@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 9cc4f9853c7fe41db81ba1322ee726af
+guid: 7569d9b14837d452caf420fa9f3e9fc7
 PluginImporter:
   externalObjects: {}
-  serializedVersion: 2
+  serializedVersion: 3
   iconMap: {}
   executionOrder: {}
   defineConstraints: []
@@ -11,97 +11,52 @@ PluginImporter:
   isExplicitlyReferenced: 0
   validateReferences: 1
   platformData:
-  - first:
-      : Any
-    second:
-      enabled: 0
+    Any:
+      enabled: 1
       settings:
-        Exclude Android: 1
-        Exclude Editor: 1
-        Exclude Linux64: 1
-        Exclude OSXUniversal: 1
+        Exclude Editor: 0
+        Exclude Linux64: 0
+        Exclude OSXUniversal: 0
         Exclude VisionOS: 0
-        Exclude Win: 1
-        Exclude Win64: 1
-        Exclude iOS: 1
-        Exclude tvOS: 1
-  - first:
-      Android: Android
-    second:
-      enabled: 0
-      settings:
-        AndroidSharedLibraryType: Executable
-        CPU: ARMv7
-  - first:
-      Any: 
-    second:
-      enabled: 0
-      settings: {}
-  - first:
-      Editor: Editor
-    second:
-      enabled: 0
+        Exclude Win: 0
+        Exclude Win64: 0
+        Exclude iOS: 0
+    Editor:
+      enabled: 1
       settings:
         CPU: AnyCPU
         DefaultValueInitialized: true
         OS: AnyOS
-  - first:
-      Standalone: Linux64
-    second:
-      enabled: 0
+    Linux64:
+      enabled: 1
+      settings:
+        CPU: x86_64
+    OSXUniversal:
+      enabled: 1
       settings:
         CPU: None
-  - first:
-      Standalone: OSXUniversal
-    second:
-      enabled: 0
+    VisionOS:
+      enabled: 1
+      settings:
+        AddToEmbeddedBinaries: false
+        CPU: AnyCPU
+        CompileFlags: 
+        FrameworkDependencies: CoreVideo;
+    Win:
+      enabled: 1
+      settings:
+        CPU: x86
+    Win64:
+      enabled: 1
       settings:
         CPU: None
-  - first:
-      Standalone: Win
-    second:
-      enabled: 0
-      settings:
-        CPU: None
-  - first:
-      Standalone: Win64
-    second:
-      enabled: 0
-      settings:
-        CPU: None
-  - first:
-      VisionOS: VisionOS
-    second:
+    iOS:
       enabled: 1
       settings:
         AddToEmbeddedBinaries: false
         CPU: AnyCPU
         CompileFlags: 
         FrameworkDependencies: 
-  - first:
-      iPhone: iOS
-    second:
-      enabled: 0
-      settings:
-        AddToEmbeddedBinaries: false
-        CPU: AnyCPU
-        CompileFlags: 
-        FrameworkDependencies: 
-  - first:
-      tvOS: tvOS
-    second:
-      enabled: 0
-      settings:
-        CPU: AnyCPU
-        CompileFlags: 
-        FrameworkDependencies: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 267958
-  packageName: Photon Fusion
-  packageVersion: 2.0.6
-  assetPath: Assets/Photon/Fusion/Plugins/NanoSockets/visionOS/libnanosockets.a
-  uploadId: 755233
