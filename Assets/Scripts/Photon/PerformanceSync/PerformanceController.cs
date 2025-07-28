@@ -4,7 +4,7 @@ using UnityEngine;
 public class PerformanceController : NetworkBehaviour
 {
     [Header("AI 음성 송신 트리거 타임(초)")] 
-    public float aiSendTriggerTime = 36f;
+    public float aiSendTriggerTime = 100f;
     
     [Networked] public int ShowStartNetworkTick { get; set; }      // Tick 값은 int
     private bool isShowStartedLocally = false;
