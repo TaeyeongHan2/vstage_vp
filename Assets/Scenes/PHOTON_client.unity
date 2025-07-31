@@ -6074,6 +6074,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1788992140}
     - target: {fileID: 4972475251069035465, guid: 7b356c8f339a5c2429dd2a0a35a2bbc5, type: 3}
+      propertyPath: emissionController
+      value: 
+      objectReference: {fileID: 373309512}
+    - target: {fileID: 4972475251069035465, guid: 7b356c8f339a5c2429dd2a0a35a2bbc5, type: 3}
       propertyPath: disableRightHandMesh
       value: 
       objectReference: {fileID: 501984186}

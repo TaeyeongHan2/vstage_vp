@@ -19,12 +19,16 @@ public class VelocityEstimator : MonoBehaviour
 
 	public bool estimateOnAwake = false;
 
+	private int _initialVelocityFrames;
+	private int _initialAngularVelocityFrames;
+	private bool _initialEstimateOnAwake;
+	
 	private Coroutine routine;
 	private int sampleCount;
 	private Vector3[] velocitySamples;
 	private Vector3[] angularVelocitySamples;
 
-	
+
 	//-------------------------------------------------
 	public void BeginEstimatingVelocity()
 	{
@@ -107,15 +111,18 @@ public class VelocityEstimator : MonoBehaviour
 	//-------------------------------------------------
 	void Awake()
 	{
+		_initialVelocityFrames = velocityAverageFrames;
+		_initialAngularVelocityFrames = angularVelocityAverageFrames;
+		_initialEstimateOnAwake = estimateOnAwake;
+		
 		velocitySamples = new Vector3[velocityAverageFrames];
 		angularVelocitySamples = new Vector3[angularVelocityAverageFrames];
-
+	
 		if ( estimateOnAwake )
 		{
 			BeginEstimatingVelocity();
 		}
 	}
-
 
 	//-------------------------------------------------
 	private IEnumerator EstimateVelocityCoroutine()
@@ -157,5 +164,24 @@ public class VelocityEstimator : MonoBehaviour
 			previousPosition = transform.position;
 			previousRotation = transform.rotation;
 		}
+	}
+	public void ResetToInitialState()
+	{
+		// 코루틴 정리
+		FinishEstimatingVelocity();
+
+		// 설정값 복원
+		velocityAverageFrames = _initialVelocityFrames;
+		angularVelocityAverageFrames = _initialAngularVelocityFrames;
+		estimateOnAwake = _initialEstimateOnAwake;
+
+		// 버퍼 재생성 & 샘플 카운트 리셋
+		velocitySamples = new Vector3[velocityAverageFrames];
+		angularVelocitySamples = new Vector3[angularVelocityAverageFrames];
+		sampleCount = 0;
+
+		// 원하면 다시 시작
+		if (estimateOnAwake)
+			BeginEstimatingVelocity();
 	}
 }
