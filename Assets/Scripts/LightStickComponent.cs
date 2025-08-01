@@ -12,7 +12,8 @@ public class LightStickComponent : MonoBehaviour
     [Header("충돌 시 비활성화할 오브젝트")]
     public GameObject disableRightHandMesh;
     public GameObject disableLeftHandGesFunc;
-
+    [SerializeField]
+    private EmissionController emissionController;
     private void OnTriggerEnter(Collider other)
     {
         //충돌 이벤트 발생했을 때 손바닥 위치를 따라가면서 녹음이 시작되는 부분
@@ -55,7 +56,14 @@ public class LightStickComponent : MonoBehaviour
         transform.SetParent(leftHandTarget);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+
+        if (emissionController == null)
+        {
+            Debug.LogError("[LightStickComponent] <UNK> <UNK> <UNK> <UNK> <UNK>!");
+            return;
+        }
         
+        emissionController.velocityEstimator.ResetToInitialState();
         Debug.Log("[LightStickComponent] 주먹 제스처 풀림 -> 왼손으로 복귀");
     }
 }
