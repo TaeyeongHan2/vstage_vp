@@ -38,8 +38,7 @@ public class TMP_PRO : MonoBehaviour
 
         if (keywordText != null)
         {
-            // keywordText.text = "키워드: " + string.Join(", ", keywords);
-            keywordText.text = string.Join(", ", keywords);
+            keywordText.text = "키워드: " + string.Join(", ", keywords);
         }
         else
         {
@@ -48,8 +47,7 @@ public class TMP_PRO : MonoBehaviour
 
         if (emotionText != null)
         {
-            // emotionText.text = "감정: " + string.Join(", ", emotions);
-            emotionText.text = string.Join(", ", emotions);
+            emotionText.text = "감정: " + string.Join(", ", emotions);
         }
         else
         {

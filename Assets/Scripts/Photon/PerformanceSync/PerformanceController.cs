@@ -1,8 +1,14 @@
 using Fusion;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class PerformanceController : NetworkBehaviour
 {
+
+    [Header("INPUT")] [Tooltip("공연 시작 트리거 입력용 액션")]
+    public InputActionReference startShowAction;
+    
     [Header("AI 음성 송신 트리거 타임(초)")] 
     public float aiSendTriggerTime = 100f;
     
@@ -12,12 +18,30 @@ public class PerformanceController : NetworkBehaviour
     //클라이언트가 AI 서버에 송신 요청시 필요한 flag
     private bool aiSendRequestDone = false;
     
+    public PlayableDirector timeline;
+    
+    void Start()
+    {
+        timeline.Stop();
+    }
+
+    private void OnEnable()
+    {
+        //입력 액션 활성화!
+        startShowAction.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        //입력 액션 비활성화ㅠ
+        startShowAction.action.Disable();
+    }
     private void Update()
     {
         // Host만 공연 시작 입력 받음(공연 시작은 호스트만 트리거)
-        if (HasStateAuthority && !isShowStartedLocally && Input.GetKeyDown(KeyCode.Space))
+        if (HasStateAuthority && !isShowStartedLocally && startShowAction.action.WasPerformedThisFrame())
         {
-            Debug.Log("[호스트] Space 입력, RPC 호출");
+            Debug.Log("[호스트] vive controller 입력, RPC 호출");
             // 올바른 Tick 획득
             StartShowRPC(Runner.Tick);
         }
@@ -46,6 +70,9 @@ public class PerformanceController : NetworkBehaviour
         ShowStartNetworkTick = networkTick;
         isShowStartedLocally = true;
         aiSendRequestDone = false;
+        timeline.Play();
+        Debug.Log("Timeline 시작!");
+
     }
     
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
