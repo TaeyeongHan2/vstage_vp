@@ -60,15 +60,15 @@ public class WebSocketVoiceClient : MonoBehaviour
 
                 var parsed = JsonConvert.DeserializeObject<AIMessage>(jsonString);
 
-                if (parsed?.top_keywords != null && parsed.top_emotions != null)
+                if (parsed?.keywords != null && parsed.emotions != null)
                 {
                     // if (AIResponseStore.Instance == null)
                     // {
                     //     Debug.Log("업성용");
                     //     return;
                     // }
-                    AIResponseStore.Instance?.UpdateData(parsed.top_keywords, parsed.top_emotions);
-                    Debug.Log($"[AI 요약 응답 수신]\n▶ Top Keywords: {string.Join(", ", parsed.top_keywords)}\n▶ Top Emotions: {string.Join(", ", parsed.top_emotions)}");
+                    AIResponseStore.Instance?.UpdateData(parsed.keywords, parsed.emotions);
+                    Debug.Log($"[AI 요약 응답 수신]\n▶Keywords: {string.Join(", ", parsed.keywords)}\n▶Emotions: {string.Join(", ", parsed.emotions)}");
                 }
                 else
                 {
@@ -149,6 +149,6 @@ public class WebSocketVoiceClient : MonoBehaviour
 public class AIMessage
 {
     public string type { get; set; }
-    public List<string> top_keywords { get; set; }
-    public List<string> top_emotions { get; set; }
+    public List<string> keywords { get; set; }
+    public List<string> emotions { get; set; }
 }
