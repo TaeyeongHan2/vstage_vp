@@ -47,9 +47,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/PHOTON_client.unity
     guid: 4cfb5521e784148bfa8baeca711f0f1c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PHOTON_client_wonjin.unity
     guid: d97e46d6c6fae4ca79d18bf15f325083
+  - enabled: 1
+    path: Assets/Scenes/Audience_func_final.unity
+    guid: fa1df3ce37f164792818ecc28d131358
   m_configObjects:
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 4a1a6e5a284c24d65b60d8aa335f1385, type: 2}
     UnityEditor.XR.VisionOS.VisionOSSettings: {fileID: 11400000, guid: e5a62c3ab3e284d25b3a319b2ec00a03, type: 2}
