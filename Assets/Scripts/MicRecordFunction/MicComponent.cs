@@ -40,6 +40,9 @@ namespace MicRecordFunction
         public GameObject recordingUI;
         private Coroutine blinkCoroutine;
 
+        [Header("녹음 끝났을 때 날아갈 이펙트")] 
+        public GameObject recordEndEffect;
+
         private void Start()
         {
             // _originalPosition = transform.position;
@@ -104,6 +107,7 @@ namespace MicRecordFunction
         public void OnGrabGestureReleased()
         {
             StopAndSend();
+            recordEndEffect.SetActive(true);
             _isFollowing = false;
 
             // 왼손의 palm 아래로 다시 이동
