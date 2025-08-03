@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
 
@@ -5,6 +6,20 @@ public class PerformanceController : NetworkBehaviour
 {
     [Header("AI 음성 송신 트리거 타임(초)")] 
     public float aiSendTriggerTime = 100f;
+    
+    [Header("표시할 텍스트 타이밍(초)")]
+    public List<float> cueTimes = new List<float> { 10f, 25f, 40f };        // 예: 10초, 25초, 40초에
+    [Header("표시할 텍스트 내용")]
+    public List<string> cueTexts = new List<string>
+    {
+        "Step in the room like a thunder roll",
+        "빛나는 crown yeah I own the goal",
+        "Got my squad tight like a diamond mold",
+        "You can't touch this I'm untouchable",
+        "",
+        "",
+        
+    };
     
     [Networked] public int ShowStartNetworkTick { get; set; }      // Tick 값은 int
     private bool isShowStartedLocally = false;
