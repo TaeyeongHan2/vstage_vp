@@ -73,6 +73,14 @@ public class WebSocketVoiceClient : MonoBehaviour
                 // }
                 if (parsed?.keywords != null && parsed.emotions != null)
                 { 
+                    // 3) 각 키워드 하나씩 로그
+                    foreach (var kw in parsed.keywords)
+                        Debug.Log($"[Parsed ▶ Keyword] {kw}");
+
+                    // 4) 각 감정 하나씩 로그
+                    foreach (var em in parsed.emotions)
+                        Debug.Log($"[Parsed ▶ Emotion] {em}");
+                    
                     AIResponseStore.Instance.UpdateData(parsed.keywords, parsed.emotions); 
                     Debug.Log(
                         $"[AI 요약]\n" + 
