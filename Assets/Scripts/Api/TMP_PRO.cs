@@ -45,8 +45,8 @@ public class TMP_PRO : MonoBehaviour
         Debug.Log("키워드: " + string.Join(", ", keywords));
         Debug.Log("감정: " + string.Join(", ", emotions));
         // 1) 각 키워드 텍스트에 인덱스별 색상과 키워드 할당
-        int count = Mathf.Min(keywordTexts.Count, keywords.Count);
-        for (int i = 0; i < count; i++)
+        var count = Mathf.Min(keywordTexts.Count, keywords.Count);
+        for (var i = 0; i < count; i++)
         {
             var txt = keywordTexts[i];
             var col = colorMapper.GetColor(i);
@@ -54,13 +54,13 @@ public class TMP_PRO : MonoBehaviour
             txt.text  = keywords[i];
         }
         // 남은 텍스트는 빈 문자열 처리
-        for (int i = count; i < keywordTexts.Count; i++)
+        for (var i = count; i < keywordTexts.Count; i++)
         {
             keywordTexts[i].text = "";
         }
 
         // 2) (필요하면) 감정 리스트 전체 표시
-        if (emotionText != null)
+        if (emotionText)
             emotionText.text = string.Join(", ", emotions);
         
         // if (keywordText != null)
@@ -84,7 +84,7 @@ public class TMP_PRO : MonoBehaviour
         // }
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (AIResponseStore.Instance != null)
         {

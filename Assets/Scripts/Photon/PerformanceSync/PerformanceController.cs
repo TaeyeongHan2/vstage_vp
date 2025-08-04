@@ -10,9 +10,9 @@ public class PerformanceController : NetworkBehaviour
     [Header("AI 텍스트 표시 타이밍(초)")]
     public float aiDisplayTime = 39f;    // 화면에 띄울 시점
    
-    [Header("가사·텍스트 데이터")]
-    public CueData cueData;  
-    
+    // [Header("가사·텍스트 데이터")]
+    // public CueData cueData;  
+
     [Networked] public int ShowStartNetworkTick { get; set; }      // Tick 값은 int
     private bool isShowStartedLocally = false;
     
@@ -21,7 +21,15 @@ public class PerformanceController : NetworkBehaviour
     private bool aiDisplayDone = false;
     private int nextCueIndex = 0;
     
-    private void Update()
+    [SerializeField] private WebSocketVoiceClient _webSocketVoiceClient;
+    [SerializeField] private TMP_PRO tmpPro;
+    
+    public override void Spawned()
+    {
+        ShowStartNetworkTick = 0;
+    }
+    
+    public override void Render()
     {
         // Host만 공연 시작 입력 받음(공연 시작은 호스트만 트리거)
         if (HasStateAuthority && !isShowStartedLocally && Input.GetKeyDown(KeyCode.Space))
@@ -50,20 +58,22 @@ public class PerformanceController : NetworkBehaviour
             if (!aiDisplayDone && elapsedSec >= aiDisplayTime)
             {
                 aiDisplayDone = true;
+                Debug.Log(aiSendRequestDone);
+                Debug.Log( $"{elapsedSec >= aiSendTriggerTime}");
                 Debug.Log("AI 텍스트 표시 RPC 전송!");
                 DisplayAITextRPC();
             }
             
             // Cue 순차 처리
-            if (HasStateAuthority && nextCueIndex < cueData.cues.Count)
-            {
-                var cue = cueData.cues[nextCueIndex];
-                if (elapsedSec >= cue.time)
-                {
-                    TriggerCueRPC(nextCueIndex);
-                    nextCueIndex++;
-                }
-            }
+            // if (HasStateAuthority && nextCueIndex < cueData.cues.Count)
+            // {
+            //     var cue = cueData.cues[nextCueIndex];
+            //     if (elapsedSec >= cue.time)
+            //     {
+            //         TriggerCueRPC(nextCueIndex);
+            //         nextCueIndex++;
+            //     }
+            // }
         }
     }
 
@@ -83,11 +93,15 @@ public class PerformanceController : NetworkBehaviour
         //36초의 RPC의 실제 AI 송신 실행은 관객만 실행
         if (!HasStateAuthority) 
         {
-            var voiceClient = FindObjectOfType<WebSocketVoiceClient>();
-            if (voiceClient != null && voiceClient.IsTriggerConnected)
-                voiceClient.SendGaugeSignal();
+            if (_webSocketVoiceClient&& _webSocketVoiceClient.IsTriggerConnected)
+            {
+                Debug.Log("RequestAISendRPC");
+                _webSocketVoiceClient.SendGaugeSignal();
+            }
             else
+            {
                 Debug.LogWarning("관객: VoiceClient 준비 안됨, 송신 실패");
+            }
         }
     }
     
@@ -97,19 +111,19 @@ public class PerformanceController : NetworkBehaviour
     {
         Debug.Log("[All] AI 텍스트 표시 트리거 수신");
         // TMP_PRO 컴포넌트를 찾아서 UpdateText() 호출
-        var pro = FindObjectOfType<TMP_PRO>();
-        if (pro != null)
-            pro.UpdateText();
+        
+        if (tmpPro)
+            tmpPro.UpdateText();
         else
             Debug.LogWarning("TMP_PRO를 찾을 수 없습니다.");
     }
     
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    void TriggerCueRPC(int cueIndex)
-    {
-        var cue = cueData.cues[cueIndex];
-        Debug.Log($"[Cue] {cue.time}s → {cue.text}");
-        // TODO: 실제 UI 표시
-        // 예: UIManager.Instance.ShowLyric(cue.text);
-    }
+    // [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    // void TriggerCueRPC(int cueIndex)
+    // {
+    //     var cue = cueData.cues[cueIndex];
+    //     Debug.Log($"[Cue] {cue.time}s → {cue.text}");
+    //     // TODO: 실제 UI 표시
+    //     // 예: UIManager.Instance.ShowLyric(cue.text);
+    // }
 }
