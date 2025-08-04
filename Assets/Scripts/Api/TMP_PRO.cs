@@ -2,11 +2,15 @@ using TMPro;
 using UnityEngine;
 using System.Text; 
 using System.Collections;
+using System.Collections.Generic;
 
 public class TMP_PRO : MonoBehaviour
 {
-    [Header("TextMeshPro Fields")]
-    public TMP_Text keywordText;
+    [Header("각 키워드를 표시할 20개의 TMP_Text")]
+    [Tooltip("씬에 배치한 20개의 키워드 텍스트 오브젝트를 순서대로 넣으세요.")]
+    public List<TMP_Text> keywordTexts = new List<TMP_Text>(20);
+    
+    [Header("감정 텍스트 (원본 리스트)")]
     public TMP_Text emotionText;
     
     [Header("Emotion→Color 매핑 컴포넌트")]
@@ -34,37 +38,28 @@ public class TMP_PRO : MonoBehaviour
 
     public void UpdateText()
     {
-        var keywords = AIResponseStore.Instance?.LatestKeywords ?? new();
-        var emotions = AIResponseStore.Instance?.LatestEmotions ?? new();
+        var keywords = AIResponseStore.Instance.LatestKeywords;
+        var emotions = AIResponseStore.Instance.LatestEmotions;
 
         Debug.Log("TMP_PRO UpdateText 호출됨");
         Debug.Log("키워드: " + string.Join(", ", keywords));
         Debug.Log("감정: " + string.Join(", ", emotions));
-        // 1) 키워드에 감정색 매핑해서 Rich Text 조합
-        if (keywordText != null && colorMapper != null)
+        // 1) 각 키워드 텍스트에 인덱스별 색상과 키워드 할당
+        int count = Mathf.Min(keywordTexts.Count, keywords.Count);
+        for (int i = 0; i < count; i++)
         {
-            var sb = new StringBuilder();
-            int count = Mathf.Min(keywords.Count, emotions.Count);
-            for (int i = 0; i < count; i++)
-            {
-                // i번째 감정의 색상 얻기
-                Color c = colorMapper.GetColor(i);
-                string hex = ColorUtility.ToHtmlStringRGB(c);
-
-                // 색상 태그 적용
-                sb.Append($"<color=#{hex}>{keywords[i]}</color>");
-                if (i < count - 1)
-                    sb.Append(", ");
-            }
-            keywordText.text = sb.ToString();
+            var txt = keywordTexts[i];
+            var col = colorMapper.GetColor(i);
+            txt.color = col;
+            txt.text  = keywords[i];
         }
-        else if (keywordText != null)
+        // 남은 텍스트는 빈 문자열 처리
+        for (int i = count; i < keywordTexts.Count; i++)
         {
-            // 컬러 매퍼 없으면 그냥 텍스트만
-            keywordText.text = string.Join(", ", keywords);
+            keywordTexts[i].text = "";
         }
 
-        // 2) 감정 리스트는 그대로(혹은 원하시면 이쪽도 컬러 처리)
+        // 2) (필요하면) 감정 리스트 전체 표시
         if (emotionText != null)
             emotionText.text = string.Join(", ", emotions);
         
