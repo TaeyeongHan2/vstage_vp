@@ -5,27 +5,21 @@ using UnityEngine;
 public class PerformanceController : NetworkBehaviour
 {
     [Header("AI 음성 송신 트리거 타임(초)")] 
-    public float aiSendTriggerTime = 100f;
+    public float aiSendTriggerTime = 36f;
     
-    [Header("표시할 텍스트 타이밍(초)")]
-    public List<float> cueTimes = new List<float> { 10f, 25f, 40f };        // 예: 10초, 25초, 40초에
-    [Header("표시할 텍스트 내용")]
-    public List<string> cueTexts = new List<string>
-    {
-        "Step in the room like a thunder roll",
-        "빛나는 crown yeah I own the goal",
-        "Got my squad tight like a diamond mold",
-        "You can't touch this I'm untouchable",
-        "",
-        "",
-        
-    };
+    [Header("AI 텍스트 표시 타이밍(초)")]
+    public float aiDisplayTime = 39f;    // 화면에 띄울 시점
+   
+    [Header("가사·텍스트 데이터")]
+    public CueData cueData;  
     
     [Networked] public int ShowStartNetworkTick { get; set; }      // Tick 값은 int
     private bool isShowStartedLocally = false;
     
     //클라이언트가 AI 서버에 송신 요청시 필요한 flag
     private bool aiSendRequestDone = false;
+    private bool aiDisplayDone = false;
+    private int nextCueIndex = 0;
     
     private void Update()
     {
@@ -50,6 +44,25 @@ public class PerformanceController : NetworkBehaviour
                 aiSendRequestDone = true;
                 Debug.Log("AI 송신 트리거 RPC 전송!");
                 RequestAISendRPC();
+            }
+            
+            // 2) 39초에 AI 텍스트 표시 RPC
+            if (!aiDisplayDone && elapsedSec >= aiDisplayTime)
+            {
+                aiDisplayDone = true;
+                Debug.Log("AI 텍스트 표시 RPC 전송!");
+                DisplayAITextRPC();
+            }
+            
+            // Cue 순차 처리
+            if (HasStateAuthority && nextCueIndex < cueData.cues.Count)
+            {
+                var cue = cueData.cues[nextCueIndex];
+                if (elapsedSec >= cue.time)
+                {
+                    TriggerCueRPC(nextCueIndex);
+                    nextCueIndex++;
+                }
             }
         }
     }
@@ -76,5 +89,27 @@ public class PerformanceController : NetworkBehaviour
             else
                 Debug.LogWarning("관객: VoiceClient 준비 안됨, 송신 실패");
         }
+    }
+    
+    // Host→All RPC로, 모든 클라이언트가 39초에 이 함수 실행
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    void DisplayAITextRPC()
+    {
+        Debug.Log("[All] AI 텍스트 표시 트리거 수신");
+        // TMP_PRO 컴포넌트를 찾아서 UpdateText() 호출
+        var pro = FindObjectOfType<TMP_PRO>();
+        if (pro != null)
+            pro.UpdateText();
+        else
+            Debug.LogWarning("TMP_PRO를 찾을 수 없습니다.");
+    }
+    
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    void TriggerCueRPC(int cueIndex)
+    {
+        var cue = cueData.cues[cueIndex];
+        Debug.Log($"[Cue] {cue.time}s → {cue.text}");
+        // TODO: 실제 UI 표시
+        // 예: UIManager.Instance.ShowLyric(cue.text);
     }
 }
