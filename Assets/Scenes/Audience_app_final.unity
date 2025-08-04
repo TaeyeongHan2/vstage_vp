@@ -8429,6 +8429,7 @@ GameObject:
   - component: {fileID: 903622389}
   - component: {fileID: 903622388}
   - component: {fileID: 903622387}
+  - component: {fileID: 903622390}
   m_Layer: 0
   m_Name: Performance Manager
   m_TagString: Untagged
@@ -8454,6 +8455,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 903622388}
+  - {fileID: 903622390}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &903622388
 MonoBehaviour:
@@ -8469,7 +8471,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiSendTriggerTime: 36
   aiDisplayTime: 39
-  cueData: {fileID: 11400000, guid: 78cda177c8663414fabcdf9ad7a681a0, type: 2}
   _ShowStartNetworkTick: 0
   _webSocketVoiceClient: {fileID: 1877032915}
   tmpPro: {fileID: 1675721122}
@@ -8488,6 +8489,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &903622390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903622386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e3296b127bd4716beea8ffc4f5f907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleKey: 109
+  timeline: {fileID: 0}
 --- !u!1001 &911722823
 PrefabInstance:
   m_ObjectHideFlags: 0

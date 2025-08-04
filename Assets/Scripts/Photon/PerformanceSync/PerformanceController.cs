@@ -23,14 +23,20 @@ public class PerformanceController : NetworkBehaviour
     
     [SerializeField] private WebSocketVoiceClient _webSocketVoiceClient;
     [SerializeField] private TMP_PRO tmpPro;
+
+    private bool isSpawnReady = false;
     
     public override void Spawned()
     {
+        base.Spawned();
+        isSpawnReady = true;
         ShowStartNetworkTick = 0;
     }
     
     public override void Render()
     {
+        if (!isSpawnReady) return;
+        
         // Host만 공연 시작 입력 받음(공연 시작은 호스트만 트리거)
         if (HasStateAuthority && !isShowStartedLocally && Input.GetKeyDown(KeyCode.Space))
         {
@@ -80,6 +86,11 @@ public class PerformanceController : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void StartShowRPC(int networkTick)
     {
+        if (!isSpawnReady)
+        {
+            Debug.LogWarning("Spawned 전 RPC 수신: 동작 보류");
+            return;
+        }
         Debug.Log($"[호스트/클라이언트] StartShowRPC 호출됨: Tick: {networkTick}");
         ShowStartNetworkTick = networkTick;
         isShowStartedLocally = true;
@@ -89,6 +100,8 @@ public class PerformanceController : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RequestAISendRPC()
     {
+        if (!isSpawnReady) return;
+        
         Debug.Log("관객 및 호스트: AI 서버에 음성 송신 요청 트리거 수신!");
         //36초의 RPC의 실제 AI 송신 실행은 관객만 실행
         if (!HasStateAuthority) 
@@ -109,6 +122,7 @@ public class PerformanceController : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     void DisplayAITextRPC()
     {
+        if (!isSpawnReady) return;
         Debug.Log("[All] AI 텍스트 표시 트리거 수신");
         // TMP_PRO 컴포넌트를 찾아서 UpdateText() 호출
         
