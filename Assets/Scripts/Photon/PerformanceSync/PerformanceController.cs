@@ -1,9 +1,13 @@
 using Fusion;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class PerformanceController : NetworkBehaviour
 {
-    [Header("AI 음성 송신 트리거 타임(초)")] 
+    [Header("키 설정")] public KeyCode toggleKey = KeyCode.M;
+        
+    [Header("AI 음성 송신 트리거 타임(초)")]
     public float aiSendTriggerTime = 100f;
     
     [Networked] public int ShowStartNetworkTick { get; set; }      // Tick 값은 int
@@ -12,12 +16,19 @@ public class PerformanceController : NetworkBehaviour
     //클라이언트가 AI 서버에 송신 요청시 필요한 flag
     private bool aiSendRequestDone = false;
     
+    public PlayableDirector timeline;
+    
+    void Start()
+    {
+        timeline.Stop();
+    }
+    
     private void Update()
     {
         // Host만 공연 시작 입력 받음(공연 시작은 호스트만 트리거)
-        if (HasStateAuthority && !isShowStartedLocally && Input.GetKeyDown(KeyCode.Space))
+        if (HasStateAuthority && !isShowStartedLocally && Input.GetKeyDown(toggleKey))
         {
-            Debug.Log("[호스트] Space 입력, RPC 호출");
+            Debug.Log("[호스트] vive controller 입력, RPC 호출");
             // 올바른 Tick 획득
             StartShowRPC(Runner.Tick);
         }
@@ -46,6 +57,9 @@ public class PerformanceController : NetworkBehaviour
         ShowStartNetworkTick = networkTick;
         isShowStartedLocally = true;
         aiSendRequestDone = false;
+        timeline.Play();
+        Debug.Log("Timeline 시작!");
+
     }
     
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]

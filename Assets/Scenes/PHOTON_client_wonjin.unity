@@ -17144,8 +17144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59f8781bcc9749938fdfcfc95d213a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toggleKey: 109
   aiSendTriggerTime: 100
   _ShowStartNetworkTick: 0
+  timeline: {fileID: 1316324585}
 --- !u!4 &1586386970
 Transform:
   m_ObjectHideFlags: 0
