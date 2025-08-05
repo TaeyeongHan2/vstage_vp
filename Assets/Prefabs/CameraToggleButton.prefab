@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8335598305704949512}
   - component: {fileID: 40695912270187000}
   - component: {fileID: 7957464567302496623}
-  - component: {fileID: 748645572953784979}
   m_Layer: 0
   m_Name: CameraToggleButton
   m_TagString: Untagged
@@ -109,17 +108,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &748645572953784979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7618239295880352943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dd299161648b49cd8f27d9f2e205d71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameras:
-  - {fileID: 0}

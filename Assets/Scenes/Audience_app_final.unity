@@ -326,7 +326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &40394108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3752,7 +3752,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7618239295880352943, guid: bc7c4c9267b7c4dc5942edcadb9542f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 380337202}
   m_SourcePrefab: {fileID: 100100000, guid: bc7c4c9267b7c4dc5942edcadb9542f5, type: 3}
 --- !u!1 &380337196 stripped
 GameObject:
@@ -3764,6 +3767,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5368684990090732366, guid: bc7c4c9267b7c4dc5942edcadb9542f5, type: 3}
   m_PrefabInstance: {fileID: 380337195}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &380337202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380337196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e5a35b3f16e24dc2ba313556fb71a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 1620691298}
+  toggleKey: 110
 --- !u!1001 &396870781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9132,7 +9149,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 820085364426939818, guid: ba48c53952a0c41b2b6cbbae9375f4c5, type: 3}
       propertyPath: m_text
-      value: "\uC0AC\uB791"
+      value: "\uB8E8\uB098 \uB108\uBB34 \uBA4B\uC838"
       objectReference: {fileID: 0}
     - target: {fileID: 2239282816368638093, guid: ba48c53952a0c41b2b6cbbae9375f4c5, type: 3}
       propertyPath: m_LocalScale.x
@@ -9365,7 +9382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59f8781bcc9749938fdfcfc95d213a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aiSendTriggerTime: 36
+  aiSendTriggerTime: 33
   aiDisplayTime: 39
   _ShowStartNetworkTick: 0
   _webSocketVoiceClient: {fileID: 1877032915}
@@ -15701,8 +15718,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620691295}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.41, z: -11.55}
+  m_LocalRotation: {x: 0.000089471694, y: 0.99975663, z: -0.015398603, w: 0.015802547}
+  m_LocalPosition: {x: -5.8694134, y: 10.637602, z: 23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
