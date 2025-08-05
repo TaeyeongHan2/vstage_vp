@@ -14,7 +14,7 @@ public class WebSocketVoiceClient : MonoBehaviour
     private WebSocket audioSocket;
     private WebSocket triggerSocket;
 
-    public bool IsTriggerConnected { get; private set; } = false;
+    public bool IsTriggerConnected => triggerSocket != null && triggerSocket.State == WebSocketState.Open;
 
     void Start()
     {
@@ -36,11 +36,7 @@ public class WebSocketVoiceClient : MonoBehaviour
             Debug.Log("[AI TEXT 응답] " + message);
         };
 
-        triggerSocket.OnOpen += () =>
-        {
-            IsTriggerConnected = true;
-            Debug.Log("[Trigger WebSocket] 연결 성공");
-        };
+        triggerSocket.OnOpen += () => Debug.Log("[Trigger WebSocket] 연결 성공");
         triggerSocket.OnError += (e) => Debug.LogError("[Trigger WebSocket Error] " + e);
         triggerSocket.OnClose += (e) => Debug.LogWarning("[Trigger WebSocket] 닫힘: " + e);
 
