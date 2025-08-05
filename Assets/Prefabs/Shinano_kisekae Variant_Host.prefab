@@ -25399,6 +25399,7 @@ GameObject:
   - component: {fileID: 1029335162308663905}
   - component: {fileID: 7805461347199150033}
   - component: {fileID: 3615890927403914386}
+  - component: {fileID: 9190731505354188309}
   m_Layer: 0
   m_Name: Shinano_kisekae Variant_Host
   m_TagString: Untagged
@@ -25416,7 +25417,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.55, y: 1.55, z: 1.55}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 408163527078281715}
@@ -25506,7 +25507,7 @@ MonoBehaviour:
       animatedHeadHeightBlend: 0.3
       pelvisTarget: {fileID: 0}
       pelvisPositionWeight: 0.5
-      pelvisRotationWeight: 0
+      pelvisRotationWeight: 0.5
       maintainPelvisPosition: 0.2
       chestGoal: {fileID: 0}
       chestGoalWeight: 0
@@ -25724,6 +25725,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 3615890927403914386}
+  - {fileID: 9190731505354188309}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &3615890927403914386
 MonoBehaviour:
@@ -25739,6 +25741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vrik: {fileID: 1029335162308663905}
   animator: {fileID: 0}
+  facialTracking: {fileID: 9190731505354188309}
   _BoneRotations: []
   _RootPosition: {x: 0, y: 0, z: 0}
   _RootRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -25749,6 +25752,22 @@ MonoBehaviour:
   _FacialO: 0
   _FacialSad: 0
   _FacialTongue: 0
+--- !u!114 &9190731505354188309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7069628997833690243}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6789012345678abcdef12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMesh: {fileID: 0}
+  intensity: 1
+  smoothing: 0.1
+  showDebug: 1
 --- !u!1 &7070902987060079427
 GameObject:
   m_ObjectHideFlags: 0
