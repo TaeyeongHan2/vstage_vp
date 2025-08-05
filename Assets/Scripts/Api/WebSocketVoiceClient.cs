@@ -8,13 +8,13 @@ using Newtonsoft.Json;
 
 public class WebSocketVoiceClient : MonoBehaviour
 {
-    public string audioWebSocketUrl = "ws://221.163.19.142:58025/ws/audio";
-    public string triggerWebSocketUrl = "ws://221.163.19.142:58025/ws/trigger";
+    public string audioWebSocketUrl = "ws://221.163.19.142:58026/ws/audio";
+    public string triggerWebSocketUrl = "ws://221.163.19.142:58026/ws/trigger";
 
     private WebSocket audioSocket;
     private WebSocket triggerSocket;
 
-    public bool IsTriggerConnected { get; private set; } = false;
+    public bool IsTriggerConnected => triggerSocket != null && triggerSocket.State == WebSocketState.Open;
 
     void Start()
     {
@@ -36,11 +36,7 @@ public class WebSocketVoiceClient : MonoBehaviour
             Debug.Log("[AI TEXT 응답] " + message);
         };
 
-        triggerSocket.OnOpen += () =>
-        {
-            IsTriggerConnected = true;
-            Debug.Log("[Trigger WebSocket] 연결 성공");
-        };
+        triggerSocket.OnOpen += () => Debug.Log("[Trigger WebSocket] 연결 성공");
         triggerSocket.OnError += (e) => Debug.LogError("[Trigger WebSocket Error] " + e);
         triggerSocket.OnClose += (e) => Debug.LogWarning("[Trigger WebSocket] 닫힘: " + e);
 
@@ -58,18 +54,37 @@ public class WebSocketVoiceClient : MonoBehaviour
                     return;
                 }
 
-                var parsed = JsonConvert.DeserializeObject<AIMessage>(jsonString);
+                // var parsed = JsonConvert.DeserializeObject<AIMessage>(jsonString);
+                var parsed = JsonConvert.DeserializeObject<EmotionKeywordData>(jsonString);
 
-                if (parsed?.top_keywords != null && parsed.top_emotions != null)
-                {
-                    // if (AIResponseStore.Instance == null)
-                    // {
-                    //     Debug.Log("업성용");
-                    //     return;
-                    // }
-                    AIResponseStore.Instance?.UpdateData(parsed.top_keywords, parsed.top_emotions);
-                    Debug.Log($"[AI 요약 응답 수신]\n▶ Top Keywords: {string.Join(", ", parsed.top_keywords)}\n▶ Top Emotions: {string.Join(", ", parsed.top_emotions)}");
+                // if (parsed?.top_keywords != null && parsed.top_emotions != null)
+                // {
+                //     // if (AIResponseStore.Instance == null)
+                //     // {
+                //     //     Debug.Log("업성용");
+                //     //     return;
+                //     // }
+                //     AIResponseStore.Instance?.UpdateData(parsed.top_keywords, parsed.top_emotions);
+                //     Debug.Log($"[AI 요약 응답 수신]\n▶ Top Keywords: {string.Join(", ", parsed.top_keywords)}\n▶ Top Emotions: {string.Join(", ", parsed.top_emotions)}");
+                // }
+                if (parsed?.keywords != null && parsed.emotions != null)
+                { 
+                    // 3) 각 키워드 하나씩 로그
+                    foreach (var kw in parsed.keywords)
+                        Debug.Log($"[Parsed ▶ Keyword] {kw}");
+
+                    // 4) 각 감정 하나씩 로그
+                    foreach (var em in parsed.emotions)
+                        Debug.Log($"[Parsed ▶ Emotion] {em}");
+                    
+                    AIResponseStore.Instance.UpdateData(parsed.keywords, parsed.emotions); 
+                    Debug.Log(
+                        $"[AI 요약]\n" + 
+                        $"▶ Keywords: {string.Join(", ", parsed.keywords)}\n" + 
+                        $"▶ Emotions: {string.Join(", ", parsed.emotions)}"
+                        );
                 }
+                
                 else
                 {
                     Debug.LogWarning("[Trigger WebSocket] 응답은 JSON이지만 요약 정보 없음.");
@@ -145,10 +160,10 @@ public class WebSocketVoiceClient : MonoBehaviour
     }
 }
 
-[Serializable]
-public class AIMessage
-{
-    public string type { get; set; }
-    public List<string> top_keywords { get; set; }
-    public List<string> top_emotions { get; set; }
-}
+// [Serializable]
+// public class AIMessage
+// {
+//     public string type { get; set; }
+//     public List<string> top_keywords { get; set; }
+//     public List<string> top_emotions { get; set; }
+// }

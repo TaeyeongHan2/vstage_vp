@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80348f42653f240a8b97b755e4ebefd3, type: 3}
+  m_Name: Queen Code
+  m_EditorClassIdentifier: 
+  cues:
+  - time: 0
+    text: Step in the room like a thunder roll
+  - time: 0
+    text: "\uBE5B\uB098\uB294 crown yeah I own the goal"
+  - time: 0
+    text: Got my squad tight like a diamond mold
+  - time: 0
+    text: You can't touch this I'm untouchable
+  - time: 0
+    text: "Bow down baby I\u2019m the queen of fire"
+  - time: 0
+    text: Light it up higher watch me inspire
+  - time: 0
+    text: "808\u2019s hit and the bass goes wild"
+  - time: 0
+    text: We fierce we bold we run this empire
+  - time: 0
+    text: "\uB124\uAC00 \uBB50\uB77C \uD574\uB3C4 \uB098\uB294 \uBE5B\uB098"
+  - time: 0
+    text: "Top of the game I don\u2019t need your \uC2DC\uAC04"
+  - time: 0
+    text: Lace my words in gold like a designer
+  - time: 0
+    text: "Slay the beat I\u2019m the ultimate climber"
+  - time: 0
+    text: "Tick-tock \uB124 \uC2DC\uAC04\uC740 \uB05D\uB0AC\uC5B4"
+  - time: 0
+    text: "Flipping the game \uB09C \uB2E4 \uBC14\uAFE8\uC5B4"
+  - time: 0
+    text: Cyber queens ruling the neon glow
+  - time: 0
+    text: Power in my veins yeah I let it flow
+  - time: 0
+    text: "Bow down baby I\u2019m the queen of fire"
+  - time: 0
+    text: Light it up higher watch me inspire
+  - time: 0
+    text: "808\u2019s hit and the bass goes wild"
+  - time: 0
+    text: We fierce we bold we run this empire
+  - time: 0
+    text: "Flicker in the dark but I\u2019m still alive"
+  - time: 0
+    text: From Seoul to stars my power thrives
+  - time: 0
+    text: Luxury beats and a cyber drive
+  - time: 0
+    text: Watch us rise yeah we redefine
