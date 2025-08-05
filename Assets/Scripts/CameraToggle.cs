@@ -8,11 +8,23 @@ public class CameraToggle : MonoBehaviour
     [Header("키 설정")]
     public KeyCode toggleKey = KeyCode.N; // 기본값은 N키
     
+    [Header("충돌 인식 태그")]
+    public string fingerTag = "IndexTip";    // 검지 끝에 붙여둔 태그
+    
     void Update()
     {
         // N키가 눌렸을 때
         if (Input.GetKeyDown(toggleKey))
         {
+            ToggleCamera();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(fingerTag))
+        {
+            Debug.Log("검지손가락과 충돌함");
             ToggleCamera();
         }
     }

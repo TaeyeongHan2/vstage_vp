@@ -32,7 +32,7 @@ public class EmissionController : MonoBehaviour
         
         // 1) 추정 속도 가져오기
         float speed = velocityEstimator.GetVelocityEstimate().magnitude;
-        Debug.Log($"[Shake Speed] {speed:F2} m/s");
+        //Debug.Log($"[Shake Speed] {speed:F2} m/s");
 
         // 2) 0~1 정규화
         float t = Mathf.Clamp01(speed / maxSpeed);
