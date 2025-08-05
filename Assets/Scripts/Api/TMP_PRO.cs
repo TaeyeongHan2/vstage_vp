@@ -10,8 +10,8 @@ public class TMP_PRO : MonoBehaviour
     [Tooltip("씬에 배치한 20개의 키워드 텍스트 오브젝트를 순서대로 넣으세요.")]
     public List<TMP_Text> keywordTexts = new List<TMP_Text>(20);
     
-    [Header("감정 텍스트 (원본 리스트)")]
-    public TMP_Text emotionText;
+    // [Header("감정 텍스트 (원본 리스트)")]
+    // public TMP_Text emotionText;
     
     [Header("Emotion→Color 매핑 컴포넌트")]
     public EmotionColorMapper colorMapper; 
@@ -59,9 +59,9 @@ public class TMP_PRO : MonoBehaviour
             keywordTexts[i].text = "";
         }
 
-        // 2) (필요하면) 감정 리스트 전체 표시
-        if (emotionText)
-            emotionText.text = string.Join(", ", emotions);
+        // // 2) (필요하면) 감정 리스트 전체 표시
+        // if (emotionText)
+        //     emotionText.text = string.Join(", ", emotions);
         
         // if (keywordText != null)
         // {
