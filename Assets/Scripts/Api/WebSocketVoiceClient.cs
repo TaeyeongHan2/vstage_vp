@@ -8,8 +8,8 @@ using Newtonsoft.Json;
 
 public class WebSocketVoiceClient : MonoBehaviour
 {
-    public string audioWebSocketUrl = "ws://221.163.19.142:58025/ws/audio";
-    public string triggerWebSocketUrl = "ws://221.163.19.142:58025/ws/trigger";
+    public string audioWebSocketUrl = "ws://221.163.19.142:58026/ws/audio";
+    public string triggerWebSocketUrl = "ws://221.163.19.142:58026/ws/trigger";
 
     private WebSocket audioSocket;
     private WebSocket triggerSocket;
