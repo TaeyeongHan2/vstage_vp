@@ -24,6 +24,7 @@ public class CameraToggle : MonoBehaviour
     {
         if (other.CompareTag(fingerTag))
         {
+            Debug.Log("검지손가락과 충돌함");
             ToggleCamera();
         }
     }
