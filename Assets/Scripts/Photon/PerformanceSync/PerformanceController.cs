@@ -5,7 +5,7 @@ using UnityEngine;
 public class PerformanceController : NetworkBehaviour
 {
     [Header("AI 음성 송신 트리거 타임(초)")] 
-    public float aiSendTriggerTime = 36f;
+    public float aiSendTriggerTime = 33f;
     
     [Header("AI 텍스트 표시 타이밍(초)")]
     public float aiDisplayTime = 39f;    // 화면에 띄울 시점
