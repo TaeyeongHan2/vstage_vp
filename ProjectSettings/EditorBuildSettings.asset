@@ -44,7 +44,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/PHOTONS.unity
     guid: 3fd8ad98b3c234cdf8deddced1cd5fbc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PHOTON_client.unity
     guid: 4cfb5521e784148bfa8baeca711f0f1c
   - enabled: 0

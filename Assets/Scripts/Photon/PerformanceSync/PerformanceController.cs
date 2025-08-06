@@ -31,20 +31,28 @@ public class PerformanceController : NetworkBehaviour
         base.Spawned();
         isSpawnReady = true;
         ShowStartNetworkTick = 0;
+        
+        Debug.Log($"[{nameof(PerformanceController)}] 생성 완료");
     }
     
     public override void Render()
     {
         if (!isSpawnReady) return;
-        
-        // Host만 공연 시작 입력 받음(공연 시작은 호스트만 트리거)
-        if (HasStateAuthority && !isShowStartedLocally && Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (!HasStateAuthority || isShowStartedLocally)
+            {
+                Debug.Log($"[{nameof(PerformanceController)}]의 권한이 없습니다.");
+                return;
+            }
+            
+            // Host만 공연 시작 입력 받음(공연 시작은 호스트만 트리거)
             Debug.Log("[호스트] Space 입력, RPC 호출");
             // 올바른 Tick 획득
             StartShowRPC(Runner.Tick);
         }
-
+        
         // 공연 시작신호 받았으면 경과시간 출력
         if (isShowStartedLocally)
         {
