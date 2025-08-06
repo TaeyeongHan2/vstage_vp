@@ -9772,9 +9772,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 820085364426939818, guid: ba48c53952a0c41b2b6cbbae9375f4c5, type: 3}
       propertyPath: m_text
-      value: '
-
-'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2239282816368638093, guid: ba48c53952a0c41b2b6cbbae9375f4c5, type: 3}
       propertyPath: m_LocalScale.x
@@ -9862,7 +9860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6585915363981416268, guid: ba48c53952a0c41b2b6cbbae9375f4c5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 11.37
+      value: 12.44
       objectReference: {fileID: 0}
     - target: {fileID: 6585915363981416268, guid: ba48c53952a0c41b2b6cbbae9375f4c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23095,18 +23093,14 @@ SceneRoots:
   - {fileID: 1068144032}
   - {fileID: 836904905}
   - {fileID: 1003418154}
-  - {fileID: 701961508}
-  - {fileID: 1115946945}
-  - {fileID: 791450530}
   - {fileID: 1673486941}
-  - {fileID: 1263799672}
   - {fileID: 928731965}
-  - {fileID: 1869145466}
-  - {fileID: 15700885}
   - {fileID: 363013953}
-  - {fileID: 1383125061}
   - {fileID: 345997036}
+  - {fileID: 1115946945}
   - {fileID: 971347855}
+  - {fileID: 701961508}
+  - {fileID: 15700885}
   - {fileID: 674252922}
   - {fileID: 282943296}
   - {fileID: 532141987}
@@ -23114,5 +23108,9 @@ SceneRoots:
   - {fileID: 705845489}
   - {fileID: 978761339}
   - {fileID: 912324231}
+  - {fileID: 791450530}
+  - {fileID: 1263799672}
+  - {fileID: 1383125061}
+  - {fileID: 1869145466}
   - {fileID: 2056786900}
   - {fileID: 202990003}
