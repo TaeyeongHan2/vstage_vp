@@ -104,18 +104,30 @@ public class PerformanceController : NetworkBehaviour
         
         Debug.Log("관객 및 호스트: AI 서버에 음성 송신 요청 트리거 수신!");
         //36초의 RPC의 실제 AI 송신 실행은 관객만 실행
-        if (!HasStateAuthority) 
-        {
-            if (_webSocketVoiceClient&& _webSocketVoiceClient.IsTriggerConnected)
-            {
-                Debug.Log("RequestAISendRPC");
-                _webSocketVoiceClient.SendGaugeSignal();
-            }
-            else
-            {
-                Debug.LogWarning("관객: VoiceClient 준비 안됨, 송신 실패");
-            }
-        }
+         if (!HasStateAuthority) 
+         {
+             if (_webSocketVoiceClient&& _webSocketVoiceClient.IsTriggerConnected)
+             {
+                 Debug.Log("RequestAISendRPC");
+                 _webSocketVoiceClient.SendGaugeSignal();
+             }
+             else
+             {
+                 Debug.LogWarning("관객: VoiceClient 준비 안됨, 송신 실패");
+             }
+         }
+        
+       
+        // if (_webSocketVoiceClient&& _webSocketVoiceClient.IsTriggerConnected)
+        // {
+        //     Debug.Log("RequestAISendRPC");
+        //     _webSocketVoiceClient.SendGaugeSignal();
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("관객: VoiceClient 준비 안됨, 송신 실패");
+        // }
+        
     }
     
     // Host→All RPC로, 모든 클라이언트가 39초에 이 함수 실행
