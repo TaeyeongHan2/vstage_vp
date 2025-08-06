@@ -6,8 +6,8 @@ public class AIResponseStore : MonoBehaviour
 {
     public static AIResponseStore Instance { get; private set; }
 
-    public List<string> LatestKeywords { get; private set; } = new();
-    public List<string> LatestEmotions { get; private set; } = new();
+    public List<string> LatestKeywords { get; /*private*/ set; } = new();
+    public List<string> LatestEmotions { get; /*private*/ set; } = new();
 
     public event Action OnDataUpdated;
 
