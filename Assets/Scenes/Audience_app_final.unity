@@ -18264,8 +18264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53dcb3c375c705d4b9042bee3a292ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioWebSocketUrl: ws://221.163.19.142:58026/ws/audio
-  triggerWebSocketUrl: ws://221.163.19.142:58026/ws/trigger
+  audioWebSocketUrl: ws://221.163.19.142:58030/ws/audio
+  triggerWebSocketUrl: ws://221.163.19.142:58030/ws/trigger
 --- !u!4 &1877032916
 Transform:
   m_ObjectHideFlags: 0
