@@ -1,9 +1,16 @@
 using UnityEngine;
+using System.Collections;
 
 public class LightColorController : MonoBehaviour
 {
     public Light targetLight;
     public Color color = Color.cornflowerBlue;
+
+    void Start()
+    {
+        // 코루틴 시작
+        StartCoroutine(ChangeColorRoutine());
+    }
 
     void Update()
     {
@@ -11,12 +18,16 @@ public class LightColorController : MonoBehaviour
         {
             targetLight.color = color;
         }
+    }
 
-        // 키로 랜덤 색상 바꾸기 (디버깅용)
-        if (Input.GetKeyDown(KeyCode.C))
+    IEnumerator ChangeColorRoutine()
+    {
+        while (true)
         {
+            yield return new WaitForSeconds(1f); // 1초 대기
+            
+            // 랜덤 색상 변경
             color = Random.ColorHSV();
         }
     }
 }
-
