@@ -25,6 +25,7 @@ public class PerformanceController : NetworkBehaviour
     [SerializeField] private TMP_PRO tmpPro;
 
     private bool isSpawnReady = false;
+    private bool isSpacePressed;
     
     public override void Spawned()
     {
@@ -35,31 +36,35 @@ public class PerformanceController : NetworkBehaviour
         Debug.Log($"[{nameof(PerformanceController)}] 생성 완료");
     }
     
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isSpacePressed = true;
+        }
+    }
+
     public override void Render()
     {
         if (!isSpawnReady) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Host만 공연 시작 입력 받음(공연 시작은 호스트만 트리거)
+        if (HasStateAuthority && !isShowStartedLocally && isSpacePressed)
         {
-            if (!HasStateAuthority || isShowStartedLocally)
-            {
-                Debug.Log($"[{nameof(PerformanceController)}]의 권한이 없습니다.");
-                return;
-            }
-            
-            // Host만 공연 시작 입력 받음(공연 시작은 호스트만 트리거)
+            isSpacePressed = false;
+
             Debug.Log("[호스트] Space 입력, RPC 호출");
             // 올바른 Tick 획득
             StartShowRPC(Runner.Tick);
         }
-        
+
         // 공연 시작신호 받았으면 경과시간 출력
         if (isShowStartedLocally)
         {
             int elapsedTicks = Runner.Tick - ShowStartNetworkTick;
             float elapsedSec = elapsedTicks * Runner.DeltaTime;
             Debug.Log($"쇼 시작 후 경과시간: {elapsedSec:N2}초");
-            
+
             // 36초에 RPC로 AI 송신 요청
             if (!aiSendRequestDone && elapsedSec >= aiSendTriggerTime)
             {
@@ -67,7 +72,7 @@ public class PerformanceController : NetworkBehaviour
                 Debug.Log("AI 송신 트리거 RPC 전송!");
                 RequestAISendRPC();
             }
-            
+
             // 2) 39초에 AI 텍스트 표시 RPC
             if (!aiDisplayDone && elapsedSec >= aiDisplayTime)
             {
@@ -77,7 +82,7 @@ public class PerformanceController : NetworkBehaviour
                 Debug.Log("AI 텍스트 표시 RPC 전송!");
                 DisplayAITextRPC();
             }
-            
+
             // Cue 순차 처리
             // if (HasStateAuthority && nextCueIndex < cueData.cues.Count)
             // {
