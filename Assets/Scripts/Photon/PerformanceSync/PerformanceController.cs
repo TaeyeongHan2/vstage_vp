@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class PerformanceController : NetworkBehaviour
 {
@@ -26,6 +27,10 @@ public class PerformanceController : NetworkBehaviour
 
     private bool isSpawnReady = false;
     private bool isSpacePressed;
+    
+    [SerializeField] private PlayableDirector timeline;   // ← 타임라인 상태 확인용(인스펙터에서 할당)
+    private bool timelineStartCheckLogged = false;        // ← 5초 체크 로그 1회용
+
     
     public override void Spawned()
     {
@@ -64,6 +69,28 @@ public class PerformanceController : NetworkBehaviour
             int elapsedTicks = Runner.Tick - ShowStartNetworkTick;
             float elapsedSec = elapsedTicks * Runner.DeltaTime;
             Debug.Log($"쇼 시작 후 경과시간: {elapsedSec:N2}초");
+            
+            // ✅ (추가) 공연 시작 후 5초 시점에 타임라인 실행 상태 확인 로그
+            if (!timelineStartCheckLogged && elapsedSec >= 5f)
+            {
+                timelineStartCheckLogged = true;
+
+                // 이 시점에 로컬 타임라인이 실행 중인지(동기 시작됐는지) 확인
+                bool isTimelinePlaying = (timeline != null && timeline.state == PlayState.Playing);
+
+                // 참고용: 이 기기에서 예상되는 타임라인 경과(초) = (현재Tick - 타임라인 시작Tick) * dt
+                int delayTicks = Mathf.CeilToInt(5f / Runner.DeltaTime);
+                int timelineStartTick = ShowStartNetworkTick + delayTicks;
+                double expectedTimelineElapsed = Mathf.Max(0, Runner.Tick - timelineStartTick) * Runner.DeltaTime;
+
+                double actualTime = (timeline != null) ? timeline.time : -1.0;
+
+                Debug.Log(
+                    $"[Check@5s] Timeline Playing={isTimelinePlaying} | " +
+                    $"expectedElapsed={expectedTimelineElapsed:F3}s | actualTimeline.time={actualTime:F3}s | " +
+                    $"nowTick={Runner.Tick}, startTick={ShowStartNetworkTick}, startDelayTicks={delayTicks}"
+                );
+            }
 
             // 36초에 RPC로 AI 송신 요청
             if (!aiSendRequestDone && elapsedSec >= aiSendTriggerTime)
