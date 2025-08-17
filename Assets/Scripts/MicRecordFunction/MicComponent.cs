@@ -8,8 +8,8 @@ namespace MicRecordFunction
 {
     public class MicComponent : MonoBehaviour
     {
-        [Header("녹음 파일 -> AI 서버 전달")]
-        public WebSocketVoiceClient voiceClient;
+        [Header("녹음 파일 -> AI 서버 직접 전달")]
+        public WebSocketVoiceClient voiceClient; // 다시 WebSocketVoiceClient 사용
         public int sampleRate = 16000;
         private int startSample = 0;
         
@@ -25,8 +25,6 @@ namespace MicRecordFunction
         
         [Header("손 추적 관련")]
         public Transform followTarget;
-        // private Vector3 _originalPosition;
-        // private Quaternion _originalRotation;
         private bool _isFollowing = false;
         
         [Header("왼손바닥 위에 있던 위치")]
@@ -45,9 +43,6 @@ namespace MicRecordFunction
 
         private void Start()
         {
-            // _originalPosition = transform.position;
-            // _originalRotation = transform.rotation;
-
             if (audioSource == null)
                 audioSource = GetComponent<AudioSource>();
 
@@ -69,11 +64,12 @@ namespace MicRecordFunction
 
         private void OnTriggerEnter(Collider other)
         {
-            //충돌 이벤트 발생했을 때 손바닥 위치를 따라가면서 녹음이 시작되는 부분
+            // 충돌 이벤트 발생했을 때 손바닥 위치를 따라가면서 녹음이 시작되는 부분
             if (other.CompareTag("Palm"))
             {
                 Debug.Log("[MicComponent] 손과 충돌!");
-                //오른손 mesh 비활성화
+                
+                // 오른손 mesh 비활성화
                 if (disableRightHandMesh != null)
                 {
                     disableRightHandMesh.SetActive(false);
@@ -89,11 +85,10 @@ namespace MicRecordFunction
                 transform.rotation = followTarget.rotation;
 
                 StartRecording();
-                
             }
         }
 
-        //오른손의 손바닥 위치를 계속 따라다님
+        // 오른손의 손바닥 위치를 계속 따라다님
         private void Update()
         {
             if (_isFollowing && followTarget != null)
@@ -103,7 +98,7 @@ namespace MicRecordFunction
             }
         }
 
-        //제스처 감지 추가해서 녹음 기능 꺼지고 원래 왼손 바닥의 위치로 돌아가는 부분 추가
+        // 제스처 감지 추가해서 녹음 기능 꺼지고 원래 왼손 바닥의 위치로 돌아가는 부분 추가
         public void OnGrabGestureReleased()
         {
             StopAndSend();
@@ -114,9 +109,6 @@ namespace MicRecordFunction
             transform.SetParent(leftHandTarget);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
-            
-            // transform.localPosition = _originalPosition;
-            // transform.localRotation = _originalRotation;
 
             Debug.Log("[MicComponent] 주먹 제스처 풀림 -> 녹음 종료 + 왼손으로 복귀");
         }
@@ -135,7 +127,7 @@ namespace MicRecordFunction
             }
         }
         
-        //녹음 켜지는 기능 (MicRecorder에서 가져온 로직 적용)
+        // 녹음 켜지는 기능
         private void StartRecording()
         {
             if (_isRecording || _micDevice == null) return;
@@ -154,7 +146,7 @@ namespace MicRecordFunction
             }
         }
 
-        //녹음 중지하고 웹소켓으로 전송하는 기능 (MicRecorder에서 가져온 로직 적용)
+        // 녹음 중지하고 직접 AI 서버로 전송하는 기능 (원래대로 복구)
         private void StopAndSend()
         {
             if (!_isRecording) return;
@@ -189,10 +181,11 @@ namespace MicRecordFunction
 
             byte[] wavBytes = ConvertClipToWav(segmentClip);
 
+            // 원래대로 복구: 클라이언트가 직접 AI 서버로 WAV 데이터 전송
             if (voiceClient != null)
             {
                 voiceClient.TrySendWav(wavBytes);
-                Debug.Log("[MicComponent] WAV 데이터 전송 완료");
+                Debug.Log("[MicComponent] 클라이언트가 직접 AI 서버로 WAV 데이터 전송 완료");
             }
             else
             {
@@ -202,7 +195,7 @@ namespace MicRecordFunction
             Debug.Log($"[MicComponent] 녹음 종료, 샘플 길이: {length}");
         }
 
-        // WAV 포맷으로 변환하는 메소드 (MicRecorder에서 가져옴)
+        // WAV 포맷으로 변환하는 메소드
         private byte[] ConvertClipToWav(AudioClip clip)
         {
             float[] samples = new float[clip.samples * clip.channels];
