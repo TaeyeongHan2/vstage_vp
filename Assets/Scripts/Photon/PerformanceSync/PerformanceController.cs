@@ -93,7 +93,7 @@ public class PerformanceController : NetworkBehaviour
             }
 
             // 36초에 RPC로 AI 송신 요청
-            if (!aiSendRequestDone && elapsedSec >= aiSendTriggerTime)
+            if (!aiSendRequestDone && elapsedSec >= aiSendTriggerTime && HasStateAuthority)
             {
                 aiSendRequestDone = true;
                 Debug.Log("AI 송신 트리거 RPC 전송!");
@@ -101,7 +101,7 @@ public class PerformanceController : NetworkBehaviour
             }
 
             // 2) 39초에 AI 텍스트 표시 RPC
-            if (!aiDisplayDone && elapsedSec >= aiDisplayTime)
+            if (!aiDisplayDone && elapsedSec >= aiDisplayTime && HasStateAuthority)
             {
                 aiDisplayDone = true;
                 Debug.Log(aiSendRequestDone);
