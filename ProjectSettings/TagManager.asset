@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Palm
   - IndexTip
+  - VtuberParent
+  - Vtuber
   layers:
   - Default
   - TransparentFX
