@@ -25400,7 +25400,7 @@ GameObject:
   - component: {fileID: 7805461347199150033}
   - component: {fileID: 3615890927403914386}
   m_Layer: 0
-  m_Name: Shinano_kisekae Variant_Host
+  m_Name: Artist_Shinano_kisekae_Spawned
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
