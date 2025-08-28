@@ -3435,7 +3435,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7138510633621592464}
   m_Layer: 0
-  m_Name: CINECAMS0815
+  m_Name: VirtualCameras
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
